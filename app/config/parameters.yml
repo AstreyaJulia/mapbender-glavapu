@@ -17,7 +17,7 @@ parameters:
 
     # locale en, de, it, es, ru, nl, pt are available
     fallback_locale:   en
-    locale:            en
+    locale:            ru
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     ## Legacy branding / versioning params.
