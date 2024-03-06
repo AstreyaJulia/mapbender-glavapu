@@ -56,4 +56,6 @@ parameters:
     # * "standard": Traditional Mapbender behaviour: top-down rendering in GetCapabilities order;
     #               also the default if this parameter is not defined
     # * "reverse": bottom-up, for QGIS server, ArcGIS etc
-#     wms.default_layer_order: standard
+
+    wms.default_layer_order: standard
+    branding.project_name: "Геопортал ГлавАПУ"
