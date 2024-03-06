@@ -1,0 +1,9 @@
+
+.mb-element-activityindicator {
+  opacity: 0;
+}
+.mb-activity, .mb-activity-ajax {
+  .mb-element-activityindicator {
+    opacity: 1;
+  }
+}

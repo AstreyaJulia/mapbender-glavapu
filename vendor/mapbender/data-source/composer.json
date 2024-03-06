@@ -1,0 +1,30 @@
+{
+    "name": "mapbender/data-source",
+    "description": "Mapbender data source handler",
+    "keywords": ["mapbender", "data", "data source"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {"name": "Andriy Oblivantsev",  "email": "andriy.oblivantsev@wheregroup.com"}
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "doctrine/dbal": "^2.11 || ^3",
+        "doctrine/persistence": "^1.3.0 || ^2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^3.7",
+        "symfony/framework-bundle" :"*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mapbender\\DataSourceBundle\\": "."
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-release/0.1": "0.1.x-dev",
+            "dev-master": "0.2.x-dev"
+        }
+    }
+}

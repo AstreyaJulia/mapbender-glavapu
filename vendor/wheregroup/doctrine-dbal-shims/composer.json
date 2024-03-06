@@ -1,0 +1,16 @@
+{
+  "name": "wheregroup/doctrine-dbal-shims",
+  "description": "Doctrine DBAL / ORM convenience for mixed multi-connection setups",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.5",
+    "doctrine/dbal": "^2.7 || ^3"
+  },
+  "autoload": {
+    "psr-4": { "Wheregroup\\DoctrineDbalShims\\": "lib" }
+  },
+  "suggest": {
+    "doctrine/dbal-bundle": "To use compiler pass integration"
+  }
+}

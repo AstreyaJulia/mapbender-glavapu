@@ -1,0 +1,362 @@
+/* Backend styles include used by main backend and login */
+$textColor: #333 !default;
+
+@import "modules/base";
+@import "modules/text";
+@import "modules/layout";
+@import "modules/popup";
+@import "modules/input";
+@import "modules/dropdown";
+@import "modules/table";
+
+body {
+  font-weight: 300;
+}
+// Use lighter 400 font-weight by default for implicitly "bold" elements
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, b, strong, label, th {
+  font-weight: 400;
+}
+
+h1, .h1 {
+  font-size: 2.675rem;
+}
+h2, .h2 {
+  font-size: 2rem;
+}
+h3, .h3 {
+  font-size: 1.72rem;
+}
+h4, .h4, .tabContainer > ul {
+  font-size: 1.35rem;
+}
+
+.navigationBar {
+  .nav {
+    font-weight: bold;
+  }
+  .navbar-toggle {
+    border-color: #ccc;
+  }
+  .navbar-nav>li>a:hover, .navbar-nav>li.active>a, .dropdown-menu>.active>a {
+    color: inherit;
+    background-color: #eee;
+  }
+  &, & .dropdown-menu {
+    background-color: rgba(255, 255, 255, 1);
+    border-color: #e7e7e7;
+  }
+  box-shadow: 0 1px 8px rgba(191, 191, 191, 0.5);
+  .dropdown-menu>li>a, .dropdown-menu>.active>a {
+    color: inherit;
+  }
+
+  .navbar-brand {
+    // Reduce top/bottom padding on Bootstrap .navbar-brand (default 15px) to show the logo a bit larger
+    padding-top: 5px;
+    padding-bottom: 5px;
+    // For .logo's vertical alignment to work, it needs an inline-block sibling element with full height
+    // see https://stackoverflow.com/a/7310398
+    &:before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+    }
+  }
+  .logo {
+    max-width: 120px;
+    max-height: 100%;
+  }
+  .navbar-brand>img.logo, .navbar-brand-name {
+    display: inline-block;  // revert Bootstrap default block on .navbar-brand>img to allow vertical-align to take effect
+  }
+  .navbar-brand-name {
+    font-weight: 400;
+    vertical-align: middle;
+    margin-left: 0.25em;
+  }
+}
+
+.content-head {
+  margin-bottom: 4rem;
+  > h1:last-child {
+    margin: 0;
+  }
+}
+
+div.contentTitle {
+  > h1 {
+    margin: 0;
+  }
+  // @todo: allow regular paragraph text flow ... everywhere?
+  p {
+    margin: 0.5em 0;
+  }
+  > p {
+    font-size: 1.5rem;
+  }
+}
+
+.underlined {
+  display: inline-block;
+  padding-bottom: 10px;
+  border-bottom: solid #079ee0 5px;
+}
+
+.page{
+  position:relative;
+}
+
+// -------------------------------------------------------------------- PAGE TOP
+.head {
+  margin-bottom: 4rem;
+  // Add padding to compensate for absolute-positioned navbar-fixed-top
+  // See https://getbootstrap.com/docs/3.4/components/#navbar-fixed-top
+  padding-top: 60px;
+}
+
+.sitelinks {
+  &.list-inline li:not(:first-child):before {
+    content: "|";
+    margin-left: -5px;
+    margin-right: 5px;
+  }
+}
+
+.list-head {
+  font-size: 1.3rem;
+  .content-box {
+    display: inline-block;
+  }
+}
+
+textarea, input[type=text], input[type=number], input[type=password], .dropdownValue, .dropdownList {
+  border-radius: 8px;
+}
+
+.tabContainer {
+  > ul {
+    margin-bottom: 2rem;
+  }
+  // Use Layout rules from .nav-pills without using .nav-pills buttonish styling
+  // See https://github.com/twbs/bootstrap/blob/v3.4.1/less/navs.less#L117
+  // Mark active link with an underline instead
+  .nav > li {
+    float: left;
+    > a {
+      padding-left: 0;  // Remove Bootstrap 3 default 15px left / right for underline sizing
+      padding-right: 0;
+      padding-bottom: 10px; // = Bootstrap 3 default. Repeated for clarity
+    }
+    // Pad enclosing li instead of >a for underline sizing; redistribute entire padding right
+    padding-left: 0;
+    padding-right: 30px;
+
+    font-weight: bold;
+    &:not(.active) {
+      opacity: 0.7;
+    }
+    &.active > a {
+      // Trade bottom-padding for border to maintain height
+      padding-bottom: 7px;
+      border-bottom: solid #079ee0 3px;
+    }
+  }
+}
+
+.contentPane {
+  width: 90%;
+  max-width: 80rem;
+
+  margin: 0 auto;
+  > .content {
+
+    form {
+      &:after{
+        content: "";
+        display: block;
+        visibility: hidden;
+        clear: both;
+      }
+    }
+
+    .button-group {
+      text-align: right;
+      margin: 20px 0;
+    }
+  }
+}
+
+.filter-group {
+  th & {
+    margin-bottom: 0;
+    max-width: initial;
+  }
+  label {
+    width: auto;
+    min-width: 80px;
+    margin: 0 0.5em 0 0;
+  }
+  .inputWrapper, >input {
+    width: 200px;
+    max-width: calc(100% - 120px);  // for crowded table rows with filter embedded into a th
+  }
+  .inputWrapper {
+    display: inline-block;
+  }
+  .container-filter & {
+    white-space: nowrap;
+    label {
+      font-weight: inherit;
+      min-width: initial;
+    }
+    .inputWrapper, >input {
+      box-sizing: content-box;
+      padding: 0;
+      height: auto;
+      width: 12em;
+      max-width: initial;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.5);
+      background-color: transparent;
+    }
+  }
+}
+
+.container-filter {
+  text-align: right;
+}
+
+#listFilterPermission {
+  // following (default!) collection add interaction doesn't work for Element permissions, and should also
+  // not be displayed
+  & ~ * .collectionAdd {
+    display: none;
+  }
+  & + form {
+    .collectionAdd, .labelInput.required {
+      display: none;
+    }
+  }
+}
+
+.permissionsTable{
+  .tagbox {
+    display: inline-block;
+    font-size: 85%;
+    cursor: pointer;
+    width: auto;
+    padding: 3px .5em;
+    margin: 0 .25em;
+    user-select: none;
+    border-radius: 5px;
+    input {
+      display: none;
+    }
+    &.multi {
+      background-color:#c1c1c1;
+    }
+
+    &.active {
+      color:white;
+      &.view {
+        background-color: #8DCA35;
+      }
+      &.edit, &.delete, &.create {
+        background-color: #FFAB00;
+      }
+      &.operator, &.master, &.owner {
+        background-color: #FF702A;
+      }
+    }
+  }
+}
+.iconColumn {
+  // .iconColumn contents mix div / a / span elements, but they should all
+  // size and align the same way
+  > * {
+    display: inline-block;
+  }
+  > * + *, .screentypes i:not(:first-child) {
+    margin-left: 0.5em;
+  }
+}
+
+.popover {
+  font-size: inherit;
+}
+.popover, .panel-body {
+  .form-group:last-child, .collectionItem:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.popup .table {
+  background-color: white;
+}
+
+.content-box {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 5px 10px 8px rgba(191, 191, 191, 0.5);
+  .content & {
+    margin-bottom: 2.5rem;
+  }
+}
+.content-box-lg {
+  padding: 30px 40px;
+  @media screen and (max-width: 767px) {
+    padding: 25px;
+  }
+}
+.content-box-md {
+  padding: 15px;
+}
+.clip-text {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+.flashBox{
+  $width:280px;
+
+  text-align: center;
+  width: $width;
+  margin-left: -$width/2;
+  position: fixed;
+  z-index: 1035;  // Must be higher than .navbar-fixed-top's 1030
+  top: 0;
+  left: 50%;
+  @include transition(all 1s ease-in-out);
+  opacity: 1;
+  &.kill {
+    top: -100px;
+    opacity: 0;
+  }
+}
+
+footer {
+  padding-bottom: 2.5rem;
+}
+
+.action-button, .listFilterBoxes .btn {
+  border-radius: 10px;
+  padding: 5px 20px;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  i + * {
+    margin-left: 0.5em;
+  }
+}
+
+.ui-sortable-handle {
+  cursor: move;
+  &:hover, &.ui-sortable-helper {
+    background-color: #fafafa;
+  }
+}
+
+.ui-slider .ui-slider-range {
+  background: #c2e5a4;
+}

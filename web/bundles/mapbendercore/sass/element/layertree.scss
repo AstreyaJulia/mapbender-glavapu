@@ -1,0 +1,122 @@
+$panelBorderColor: #888 !default;
+$darkFontColor: #3f3f3f !default;
+$textColor: $darkFontColor !default;
+
+.mb-element-layertree{
+  user-select: none;
+  .leave {
+    // for absolute menu positioning
+    position: relative;
+  }
+  .leave .leave, .themeContainer .leave {
+    margin-left: 0.6em;
+  }
+  .disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .leaveContainer {
+    display: flex;
+  }
+  .layer-title {
+    flex: 1 1 auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+  .leave.state-loading .layer-title {
+    opacity: 0.75;
+  }
+  .leave.state-outofscale, .leave.state-outofbounds {
+    .layer-title {
+      opacity: 0.5;
+    }
+    &.state-loading .layer-title {
+      opacity: 0.35;
+    }
+  }
+  .leave, .themeContainer {
+    > .layers {
+      display: none;
+    }
+    &.showLeaves > .layers {
+      display: block;
+    }
+  }
+
+  .leave:not(.state-error) .error-icon-wrapper,
+  .leave:not(.state-loading) .loading-icon-wrapper {
+    display: none;
+  }
+  .error-icon-wrapper, .leave.state-error .layer-title {
+    color: $errorColor;
+  }
+  .layer-menu-btn, .error-icon-wrapper, .loading-icon-wrapper {
+    margin-left: 4px;
+  }
+
+  .disabled-placeholder {
+    pointer-events: none;
+    opacity: 0;
+    cursor: default;
+  }
+}
+
+$layer-slider-bar-height: 5px;
+.layer-menu {
+  color: #222;
+  position: absolute;
+  right: 0;
+  top: 1.5em;
+  background-color: white;
+  padding: $space / 4;
+
+  z-index: 45;
+  // NEED constant width, otherwise the DragDealer will get confused when resizing Popup
+  width: 140px;
+  border: solid 1px $panelBorderColor;
+  @include border-radius($radius);
+  // arrow icon
+  &:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid $panelBorderColor;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    position: absolute;
+    right: 0;
+    top: -5px;
+  }
+  &:after {
+    display: none;
+  }
+  .layer-slider-bar {
+    font-size: 85%;
+    background: rgba($textColor, 0.4);
+    border-color: transparent;
+    .layer-slider-handle {
+      // enforce minimum width so opacity handle (with text) doesn't
+      // look weird vs dimensions handle (no text)
+      min-width: 2.5em;
+    }
+  }
+}
+.mb-element-layertree {
+  /** @todo FA5: remove these hacks
+      In FA5 both filled and unfilled icons
+      use the same codepoint, but a different font
+      (.fas vs .far).
+      On FA4, the filled and unfilled versions use
+      different codepoints.
+      There is no forward compatible markup that
+      works for both FA4 and FA5.
+  */
+  .far.fa-check-square:before {
+    content: "\f046";   // = (FA4 only) .fa-check-square-o
+  }
+  .far.fa-square:before {
+    content: "\f096";   // = (FA4 only) .fa-square-o
+  }
+}

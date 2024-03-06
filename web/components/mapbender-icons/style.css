@@ -1,0 +1,157 @@
+@font-face {
+  font-family: 'mapbender-icons';
+  src:  url('fonts/mapbender-icons.eot?69z024');
+  src:  url('fonts/mapbender-icons.eot?69z024#iefix') format('embedded-opentype'),
+    url('fonts/mapbender-icons.ttf?69z024') format('truetype'),
+    url('fonts/mapbender-icons.woff?69z024') format('woff'),
+    url('fonts/mapbender-icons.svg?69z024#mapbender-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/**
+ * @todo: remove wildcard catchall-rules; apply explicitly to supplied icons
+ * Special snowflakes Digitizer and mapbender/search still rely on presence of these rules with only partially self-defined
+ * extra icons. These should be reimplemented as plain font awesome markup.
+ */
+[class^="icon-"], [class*=" icon-"] {
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-address:before {
+  content: "\e907";
+  font-family: 'mapbender-icons';
+}
+.icon-compass:before {
+  content: "\e908";
+  font-family: 'mapbender-icons';
+}
+.icon-tram:before {
+  content: "\e900";
+  font-family: 'mapbender-icons';
+}
+.icon-directions_bus:before {
+  content: "\e901";
+  font-family: 'mapbender-icons';
+}
+.icon-train:before {
+  content: "\e902";
+  font-family: 'mapbender-icons';
+}
+.icon-directions_walk:before {
+  content: "\e903";
+  font-family: 'mapbender-icons';
+}
+.icon-directions_bike:before {
+  content: "\e904";
+  font-family: 'mapbender-icons';
+}
+.icon-exchange:before {
+  content: "\e905";
+  font-family: 'mapbender-icons';
+}
+.icon-automobile:before {
+  content: "\e906";
+  font-family: 'mapbender-icons';
+}
+.icon-remove-selected:before {
+  content: "\e615";
+  font-family: 'mapbender-icons';
+}
+.icon-select-feature:before {
+  content: "\e614";
+  font-family: 'mapbender-icons';
+}
+.icon-draw-point:before {
+  content: "\e60f";
+  font-family: 'mapbender-icons';
+}
+.icon-modify-feature:before {
+  content: "\e610";
+  font-family: 'mapbender-icons';
+}
+.icon-draw-line:before {
+  content: "\e60c";
+  font-family: 'mapbender-icons';
+}
+.icon-draw-rectangle:before {
+  content: "\e60d";
+  font-family: 'mapbender-icons';
+}
+.icon-draw-ellipse:before {
+  content: "\e611";
+  font-family: 'mapbender-icons';
+}
+.icon-draw-circle:before {
+  content: "\e60e";
+  font-family: 'mapbender-icons';
+}
+.icon-move-feature:before {
+  content: "\e613";
+  font-family: 'mapbender-icons';
+}
+.icon-polyline:before {
+  content: "\e60b";
+  font-family: 'mapbender-icons';
+}
+.icon-draw-donut:before {
+  content: "\e612";
+  font-family: 'mapbender-icons';
+}
+.icon-select:before {
+  content: "\e60a";
+  font-family: 'mapbender-icons';
+}
+.icon-remove:before {
+  content: "\e606";
+  font-family: 'mapbender-icons';
+}
+.icon-edit:before {
+  content: "\e609";
+  font-family: 'mapbender-icons';
+}
+.icon-layer-tree:before {
+  content: "\e607";
+  font-family: 'mapbender-icons';
+}
+.icon-feature-info:before {
+  content: "\e608";
+  font-family: 'mapbender-icons';
+}
+.icon-area-ruler:before {
+  content: "\e600";
+  font-family: 'mapbender-icons';
+}
+.icon-polygon:before {
+  content: "\e601";
+  font-family: 'mapbender-icons';
+}
+.icon-draw-polygon:before {
+  content: "\e601";
+  font-family: 'mapbender-icons';
+}
+.icon-line-ruler:before {
+  content: "\e602";
+  font-family: 'mapbender-icons';
+}
+.icon-image-export:before {
+  content: "\e603";
+  font-family: 'mapbender-icons';
+}
+.icon-legend:before {
+  content: "\e604";
+  font-family: 'mapbender-icons';
+}
+.icon-about:before {
+  content: "\e605";
+  font-family: 'mapbender-icons';
+}

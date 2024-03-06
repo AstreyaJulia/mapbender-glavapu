@@ -1,0 +1,160 @@
+mb:
+  wms:
+    wmsloader:
+      dialog:
+        label:
+          example: Esempio
+          wmsurl: 'URL del Servizio'
+          wmsuser: Utente
+          wmspass: Password
+      error:
+        load: 'WMSLoader: le WMS capabilities non possono essere caricate!'
+      repo:
+        macros:
+          label:
+            formats: Formati
+        view:
+          label:
+            metadata: Metadati
+            contact: Contatto
+            details: Dettagli
+            layers: Layers
+            title: Titolo
+            name: Nome
+            version: Versione
+            originurl: 'Origine URL'
+            abstract: Abstract
+            onlineresource: 'Risorsa Online'
+            exceptionformats: 'Eccezione nel formato'
+            fees: Fees
+            accessconstraints: 'Limiti all''accesso'
+            person: Persona
+            organization: Organizzazione
+            position: Posizione
+            telephone: Telefono
+            facsimile: Facsimile
+            email: Email
+            address: Indirizzo
+            addresstype: 'Tipo di indirizzo'
+            city: Città
+            state: Stato
+            postcode: 'Codice postale'
+            country: Nazione
+          message:
+            cautionscalehint: 'Attenzione: i calcoli per la scala sono soggetti a una limitata risoluzione in WMS 1.1.1!'
+        instance:
+          btn:
+            save: Salva
+            cancel: Cancella
+          label:
+            originurl: 'Origine URL'
+            visible: Visibile
+            basesource: BaseSource
+            proxy: Proxy
+            transparency: Trasparenza
+            tiled: Tiled
+            title: Titolo
+            minsc: Minsc
+            maxsc: Maxsc
+            active: attivo
+            select: seleziona
+            info: info
+            toggle: alterna
+            reorder: riordina
+            allow: permetti
+            'on': attivo
+            ratio: 'fattore BBOX'
+            buffer: 'Tile buffer'
+            layerOrder: Ordine dei Layers
+            layerOrder.standard: standard
+            layerOrder.reverse: QGIS
+          vendorspecific:
+            label: 'specifiche per Vendor'
+        preview:
+          title:
+            servicerepository: 'Repository'
+          label:
+            load: Carica
+        layer:
+          label:
+            name: Nome
+            title: Titolo
+            abstract: Astratto
+            queryable: Interrogabile
+            cascaded: 'In Cascata'
+            opaque: Opaco
+            nosubset: 'Nessun Subset'
+            fixedwidth: 'Larghezza Fissa'
+            fixedheight: 'Altezza Fissa'
+            latlonbounds: LatLonBounds
+            boundingbox: BoundingBox
+            srs: SRS
+            styles: Stili
+            legendurl: 'URL della Legenda'
+            scale: Scala
+            min: Min
+            max: Max
+            scalehint: scala
+            attribution: Attributi
+            onlineresource: 'Risorsa Online'
+            logourl: 'URL del Logo'
+            identifier: Identificatore
+            authority: Autorità
+            url: URL
+            value: Valore
+            metadataurl: 'URL del Metadato'
+            dimension: Dimensione
+            extent: Estendi
+            dataurl: 'URL del Dato'
+            featurelisturl: 'URL della Featurelist'
+        instancelayerform:
+          label:
+            layerstitle: 'Titolo del Layer'
+            minscale: Scala minima
+            maxsclase: Scala massima
+            active: attivo
+            allowselecttoc: 'Permetti la Selezione nel TOC'
+            selectedtoc: 'Selezionato nel TOC'
+            allowinfotoc: 'Permetti FeatureInfo nel TOC'
+            infotoc: 'FeatureInfo nel TOC'
+            allowtoggletoc: 'Permetti Alterna nel TOC'
+            toggletoc: 'Alterna nel TOC'
+            allowreordertoc: 'Permetti Riordina nel TOC'
+            moreinfo: 'Più Informazioni'
+            id:
+              title: ID
+              description: 'Istanza Layer Id da: SourceId-SourceLayerId/InstanceId-InstanceLayerId'
+            layersname: 'Nome del Layer'
+            style: Stile
+      class:
+        title: 'loader WMS'
+        description: 'Carica un WMS attraverso la getCapabilities-Request'
+      admin:
+        label:
+          splitlayers: 'Dividi layers'
+    repository:
+      parser:
+        couldnotparse: 'Non possibile il parse di CapabilitiesDocument'
+        not_supported_document: 'CapabilitiesDocument non supportato'
+        not_supported_version: 'La versione WMS non supportata'
+    metadata:
+      section:
+        common:
+          _title: Comune
+        useconditions:
+          _title: 'Condizioni d''uso'
+        contact:
+          _title: Contatti
+        items:
+          _title: Layer
+          name: Nome
+    repo:
+      instance:
+        label:
+          dimensions: Dimensioni
+    dimhandler:
+      class:
+        title: 'Dimensioni del handler'
+        description: 'DimensionsHandler raggruppa e chiama le istanze supportate dalla dimensione sulla mappa'
+    dimensionsets:
+      no_dimension: 'nessuna dimensione'

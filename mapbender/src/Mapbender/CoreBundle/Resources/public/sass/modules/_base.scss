@@ -1,0 +1,120 @@
+@import "_compass";
+@import "modules/jqueryui_minimal";
+
+$darkFontColor: #3f3f3f !default;
+$textColor: $darkFontColor !default;
+$backgroundColor: #fff !default;
+
+*{@include box-sizing(border-box);}
+html, body{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  font:{
+    family: $fontFamily;
+    size: $fontSize;
+  }
+  color: $textColor;
+  background-color: $backgroundColor;
+}
+
+// @todo: Resolve conflicts of these extra list and heading rules with Bootstrap and
+//        general expectations. Should adopt Bootstrap convention to display lists with
+//        bullets / numbers and indents by default. Only lists that explicitly DO NOT want
+//        indents / bullets should have class list-unstyled to remove them.
+// @see https://getbootstrap.com/docs/3.4/css/#type-lists (same in Bootstrap 4)
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  // @todo: this should be the default eventually (without requiring .list-default class)
+  &.list-default {
+   padding-left: 2.5em;
+  }
+}
+ul.list-default {
+  list-style-type: disc;
+}
+ol.list-default {
+  list-style-type: decimal;
+}
+hr {
+  margin: 10px 0;
+}
+h1, h2 {
+  margin-bottom: 15px;
+}
+h1, h2, h3, h4, h5, h6 {
+  &:first-child {
+    margin-top: 0;
+  }
+  table thead & {
+    // Avoid margins inside table cells
+    margin: 0;
+  }
+}
+
+a {
+  text-decoration:none;
+  // undo bootstrap's default blue text color on all <a> elements
+  &, &:hover, &:visited, &:focus {
+    color:inherit;
+  }
+}
+
+p a, label a {
+    text-decoration: underline;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.popup, .sideContent {
+  table {
+    width: 100%;
+  }
+}
+
+// Backport of .table-bordered to Bootstrap 3, see https://getbootstrap.com/docs/4.6/content/tables/#borderless-table
+.table-borderless {
+  >thead, >tbody {
+    >tr>td, >tr>th {
+      border: none;
+    }
+  }
+}
+
+.flex-fill {
+  flex-grow: 1;
+}
+
+.overlay-fill {
+  position: relative;
+  flex-grow: 1;
+  display: inline-flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+body.desktop-template .mobile-only {
+  display: none;
+}
+body.mobile-template .desktop-only {
+  display: none;
+}
+
+.hover-highlight-effect {
+  opacity: 0.65;
+  &:hover {
+    opacity: 1.0;
+  }
+}
+
+.mb-glyphicon {
+  vertical-align: text-bottom;
+}
+i.mb-glyphicon {
+  font-style: normal;
+}

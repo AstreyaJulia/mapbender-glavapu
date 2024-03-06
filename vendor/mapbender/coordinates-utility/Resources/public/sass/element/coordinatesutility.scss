@@ -1,0 +1,24 @@
+.mb-element-coordinatesutility {
+    div.block {
+        margin-bottom: 10px;
+    }
+    .button-group {
+        height: $space*2;
+        width: 100%;
+        position: relative;
+        & .button.disabled{
+            background-color: $thirdColor;
+            border: 1px solid $secondColor;
+        }
+        .button.right {
+            margin-left: 4px;
+        }
+
+        .button.active {
+            background-color: #538e24;
+        }
+    }
+}
+.mb-element-map.crosshair {
+    cursor: crosshair !important;
+}

@@ -1,0 +1,389 @@
+$backgroundColor: #fff !default;
+$sidepaneBackground: $backgroundColor !default;
+$sidepaneBorderColor: #ccc !default;
+$sidepaneTextColor: inherit !default;
+
+$toolBarBackgroundColor: #eee !default;
+$toolBarOpacity: 1.0 !default;
+$toolBarBackground: rgba($toolBarBackgroundColor, $toolBarOpacity) !default;
+$toolBarTopBackground: $toolBarBackground !default;
+$toolBarBottomBackground: $toolBarBackground !default;
+$toolBarBorderColor: $sidepaneBorderColor !default;
+$desktopBreakpointWidth: 1200px !default;
+$hoverEffects: true !default;
+
+@import "modules/base";
+@import "modules/layout";
+@import "modules/popup";
+@import "modules/text";
+@import "modules/input";
+@import "modules/button";
+@import "modules/tabcontainer";
+@import "modules/checkbox";
+@import "modules/dropdown";
+@import "modules/dateselector";
+
+/* ------------------------------------------------------------- MISC */
+.olControlZoom {
+  display: none;
+}
+
+.contentTitle{
+  padding-bottom: 0.375em;
+  border-bottom:dashed 1px darken(#fff, 30%);
+}
+
+.linkButton {
+  &:hover, &:active{color:$ciColor;};
+}
+
+/* ---------------------------------------------------------- TOOLBAR */
+.toolBarColors, .toolBar {
+  background-color: $toolBarBackgroundColor;
+  color: $toolBarFontColor;
+}
+
+.toolbar-button-hover-effect {
+  opacity: $toolBarButtonDefaultOpacity;
+  @if $hoverEffects {
+    &:hover {
+      opacity: $toolBarButtonHoverOpacity;
+    }
+  }
+}
+
+.iconBig {
+  font-size: 160%;
+  line-height: 1;
+  &, &+* {
+    // Keep following inline element centered vertically despite resizing
+    vertical-align: middle;
+  }
+  &:before {
+    display: inline-block;
+  }
+}
+span.iconBig {
+  display: inline-block;
+}
+
+ul.toolBar, .toolBar > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toolBarItem {
+  white-space: nowrap;
+  vertical-align: middle; // workaround for mismatching effective line heights when mixing .dropdown with better-behaved items
+  padding: 5px;
+  display: inline-block;
+}
+
+.toolBarItemActive {
+  // Invert background and foreground
+  background-color: $toolBarFontColor;
+  color: $toolBarBackgroundColor;
+}
+
+.toolBarItem + .toolBarItem {
+  margin-left: 0.5rem;
+}
+
+.toolBar {
+  z-index: 4;
+  user-select: none;
+
+  padding:$space/4 $space/2 $space/4 $space/2;
+  border-color: $toolBarBorderColor;
+
+  &.top {
+    background: $toolBarTopBackground;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+  &.bottom {
+    background: $toolBarBottomBackground;
+    .dropdownList{
+      bottom: 100%;   // to "drop up"
+    }
+  }
+
+  .itemsRight {
+    text-align:right;
+    .mb-element {
+      text-align: initial;
+    }
+  }
+  .itemsCenter {
+    text-align:center;
+    .mb-element {
+      text-align: initial;
+    }
+  }
+  line-height: 1;
+  // Undo Bootstrap global label margin
+  label {
+    margin-bottom: 0;
+  }
+  .menu-wrapper {
+    .dropdown-menu {
+      font-size: inherit;
+      line-height: 1.25;
+      padding: 0;
+      >li>a {
+        // Undo Bootstrap 3 restyling of .dropdown-menu>li>a (try ShareUrl for embedded link markup)
+        line-height: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+        padding: 0;
+      }
+    }
+    .toolBarItem {
+      margin: 0.25em;
+      padding: 0.25em;
+      display: block;
+      .iconBig {
+        // emulate ~.fa-fw for neat text alignment
+        display: inline-block;
+        width: 1.25em;
+        text-align: center;
+      }
+      // Avoid responsive ~button Element label folding
+      .hidden-sm, .hidden-xs, .hidden-md-down {
+        display: initial !important;
+      }
+    }
+  }
+}
+
+// Dropdown-style elements (SrsSelector, ScaleSelector, ApplicationSwitcher)
+.toolBarItem {
+  // Restore normal line height (vs 1 on .toolBar)
+  line-height: 1.42857143;
+  label, .labelInput {
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: inherit;
+  }
+  .dropdown:not(.bs-dropdown) {
+    width: auto;
+    vertical-align: inherit;
+  }
+}
+
+
+
+/* --------------------------------------------------------- SIDEPANE */
+.sidePane {
+  &.left, &.right {
+    // undo historical float classes
+    float: none;
+  }
+  color: $sidepaneTextColor;
+  background: $sidepaneBackground;
+  height: 100%;
+  overflow: visible;
+  width: 350px;
+  position: absolute;
+  z-index: 3;
+
+  border-bottom: 1px solid $sidepaneBorderColor;
+  .toggleSideBar {
+    font-size: 1.5rem;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    border-radius: $radius;
+  }
+
+  &.left {
+    left: 0;
+    border-right: 1px solid $sidepaneBorderColor;
+    .toggleSideBar {
+      left: 0;
+      margin-left: 100%;
+    }
+  }
+
+  // style for the right side pane
+  &.right {
+    right: 0;
+    border-left: 1px solid $sidepaneBorderColor;
+    .toggleSideBar {
+      right: 0;
+      margin-right: 100%;
+    }
+  }
+  .sideContent{
+    padding:$space;
+    height: 100%;
+    > .auto-scroll-v {
+      // Grow "unstyled" sidepane vertically to avoid clipping misc popover markup
+      height: 100%;
+    }
+  }
+}
+.metadataDialog{
+  .popupContent {
+    height: 100%;
+    .contentItem {
+      height: 100%;
+    }
+  }
+  .content-toggle-container {
+    &.closed >.content-toggle-target {
+      display: none;
+    }
+    .content-toggle {
+      // Prevent undesired double-click => select all behaviour on quick toggles
+      user-select: none;
+    }
+    >.content-toggle i {
+      line-height: inherit;
+    }
+  }
+
+  table {
+    margin-bottom: 1em;
+    tbody th:first-child {
+      // Minimize and equalize header widths
+      width: 1%;
+      white-space: nowrap;
+      padding-right: 0.5em;
+    }
+  }
+  .indent {
+    margin-left: 1em;
+  }
+  table.lighter-headings {
+    tbody th {
+      font-weight: 600;
+    }
+  }
+}
+
+
+/*
+Mapbender info and error styling
+*/
+div.notifyjs-container > div.notifyjs-bootstrap-base > span{
+    display: block;
+    white-space: normal;
+    max-width: 800px;
+    max-height: 600px;
+    overflow: auto;
+    word-wrap: break-word;
+}
+
+.popup, .sidePane {
+  label {
+    font-weight: normal;
+  }
+}
+
+.collapse-toggle {
+  $buttonTextColor: $lightFontColor !default;
+  background: $buttonFirstColor;
+  color: $buttonTextColor;
+  cursor: pointer;
+}
+
+// Filter Element visibility by "screenType"
+// @see Mapbender/CoreBundle/Extension/ElementMarkupExtension.php
+// @todo: eventually we may need to make the breaking pixel width configurable
+@media screen and (max-width: #{$desktopBreakpointWidth - 1px}) {
+  .hide-screentype-mobile {
+    display: none !important; // Overrule misc display: inline-block and such with !important
+  }
+}
+
+@media screen and (min-width: $desktopBreakpointWidth) {
+  .hide-screentype-desktop {
+    display: none !important; // Overrule misc display: inline-block and such with !important
+  }
+}
+
+.auto-scroll-v {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.map-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  .map-overlay-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    div.toolBar {
+      flex: 0;
+    }
+    div.sidePane {
+      flex: 1;
+    }
+    div.toolBar {
+      position: initial;
+    }
+  }
+}
+
+.map-overlay, .map-overlay-column, .overlay-fill {
+  pointer-events: none;
+}
+.overlay-fill > *, .toolBar {
+  pointer-events: initial;
+}
+
+.anchored-element-wrap {
+  position: absolute;
+  pointer-events: none;
+  .mb-element {
+    pointer-events: auto;
+  }
+  .element-wrapper {
+    // must be non-inline to stack vertically
+    display: block;
+    > div.mb-element {
+      // must be inline to automatically shrink to real content size, and
+      // align left / right as a whole
+      display: inline-block;
+    }
+    // support "absolute"-positioned content
+    position: relative;
+  }
+  .element-wrapper + .element-wrapper {
+    margin-top: 0.5rem;
+  }
+  &.anchored-element-wrap-lt, &.anchored-element-wrap-lb {
+    left: $space * 2;
+    text-align: left;
+  }
+  &.anchored-element-wrap-rt, &.anchored-element-wrap-rb {
+    right: $space * 2;
+    text-align: right;
+  }
+  &.anchored-element-wrap-lt, &.anchored-element-wrap-rt {
+    top: $space * 2;
+  }
+  &.anchored-element-wrap-lb, &.anchored-element-wrap-rb {
+    bottom: $space;
+  }
+}
+
+.ui-autocomplete {
+  .toolBar &, .anchored-element-wrap & {
+    max-height: 250px;
+    overflow-y: hidden;
+    text-align: left;
+  }
+  .sidePane & {
+    max-width: 100%;
+  }
+}

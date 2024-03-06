@@ -1,0 +1,21 @@
+{% if displayType | default('tabs') == 'tabs' %}
+    <div class="tabContainer js-content-parent">
+        <ul class="tabs js-header-parent ui-helper-clearfix">
+            <li class="tab js-header"></li>
+        </ul>
+        <div class="container js-content js-content-content"></div>
+    </div>
+{% else %}
+    <div class="accordionContainer js-header-parent js-content-parent">
+        <div class="accordion js-header">
+        </div>
+        <div class="container-accordion js-content">
+            <div class="accordion-cell js-content-content"></div>
+       </div>
+    </div>
+{% endif %}
+{%- set script_content = '' -%}
+{%- for script_template in iframe_scripts -%}
+  {%- set script_content = script_content ~ include(script_template) -%}
+{%- endfor -%}
+<div class="hidden -js-iframe-script-template" data-script="{{ script_content }}"></div>

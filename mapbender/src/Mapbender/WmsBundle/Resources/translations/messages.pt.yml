@@ -1,0 +1,157 @@
+mb:
+  wms:
+    wmsloader:
+      dialog:
+        label:
+          example: Exemplo
+          wmsurl: URL
+          wmsuser: Usuário
+          wmspass: Senha
+      error:
+        load: 'Carregar WMS: Não podia carregar o documento WMS Capabilities!'
+      repo:
+        macros:
+          label:
+            formats: Formatos
+        view:
+          label:
+            metadata: Metadados
+            contact: Contato
+            details: Detalhes
+            layers: Camada
+            title: Título
+            name: Nome
+            version: Versão
+            originurl: 'URL de origem'
+            abstract: Descrição
+            onlineresource: 'Recurso online'
+            exceptionformats: 'Formatos de exceção'
+            fees: Taxa
+            accessconstraints: 'Limitações de acesso'
+            person: Pessoa
+            organization: Organização
+            position: Posição
+            telephone: Telefone
+            facsimile: Fax
+            email: Email
+            address: Endereço
+            addresstype: 'Tipo de endereço'
+            city: Cidade
+            state: Estado
+            postcode: 'Código postal'
+            country: País
+          message:
+            cautionscalehint: 'Atenção: O cálculo de escala está sujeito a dissolução limitada de ScaleHint no WMS 1.1.1'
+        instance:
+          btn:
+            save: Guardar
+            cancel: Cancelar
+          label:
+            originurl: 'URL de origem'
+            visible: Visibilidade
+            basesource: Basesource
+            proxy: Proxy
+            transparency: Transparência
+            tiled: 'Em mosaico'
+            title: Título
+            minsc: 'Escala mínima'
+            maxsc: 'Escala máxima'
+            active: Ativo
+            select: Escolhido
+            info: Informação
+            toggle: Abrir
+            reorder: Organizar
+            allow: Permitir
+            'on': Ligado
+            ratio: 'Factor de BBox'
+            buffer: 'Buffer de bloco'
+          vendorspecific:
+            label: 'Vendor specific'
+        preview:
+          title:
+            servicerepository: 'Repository de serviços'
+          label:
+            load: Carregar
+        layer:
+          label:
+            name: Nome
+            title: Título
+            abstract: Descrição
+            queryable: Consultável
+            cascaded: 'Em cascata'
+            opaque: Opaco
+            nosubset: 'Sem subgrupo'
+            fixedwidth: 'Largura fixa'
+            fixedheight: 'Altura fixa'
+            latlonbounds: 'Limite LatLon'
+            boundingbox: BoundingBox
+            srs: SRS
+            styles: Estilos
+            legendurl: 'URL de legenda'
+            scale: Escala
+            min: Mínimo
+            max: Máximo
+            scalehint: 'Dica de escala'
+            attribution: Attribution
+            onlineresource: 'Recurso online'
+            logourl: 'URL de logotipo'
+            identifier: Identificador
+            authority: Autoridade
+            url: URL
+            value: Valor
+            metadataurl: 'URL de metadados'
+            dimension: Dimensão
+            extent: Extensão
+            dataurl: 'URL de dados'
+            featurelisturl: 'URL de Featurelist'
+        instancelayerform:
+          label:
+            layerstitle: 'Título da camada'
+            minscale: 'Escala mínima'
+            maxsclase: 'Escala máxima'
+            active: Ativo
+            allowselecttoc: 'Permite a escolha no árvore de camadas'
+            selectedtoc: 'Escolhido no árvore de camadas'
+            allowinfotoc: 'Permite FeatureInfo no árvore de camadas'
+            infotoc: 'FeatureInfo no árvore de camadas'
+            allowtoggletoc: 'Permite mudar no árvore de camadas'
+            toggletoc: 'Mudar no árvore de camadas'
+            allowreordertoc: 'Permite organizar no árvore de camadas'
+            moreinfo: 'Mais informações'
+            id:
+              title: ID
+              description: 'Instance Layer Id: SourceId-SourceLayerId/InstanceId-InstanceLayerId'
+            layersname: Nome
+            style: Estilo
+      class:
+        title: 'Carregar WMS'
+        description: 'Carrega um WMS sobre getCapabilities-Request '
+      admin:
+        label:
+          splitlayers: 'Dividir camadas'
+    repository:
+      parser:
+        couldnotparse: 'Não pode "parse" o documento XML.'
+        not_supported_document: 'O documento XML não é suportado.'
+        not_supported_version: 'A versão de WMS não é suportado.'
+    metadata:
+      section:
+        common:
+          _title: Common
+        useconditions:
+          _title: 'Termos de utilização'
+        contact:
+          _title: Contacto
+        items:
+          _title: Nível
+          name: Nome
+    repo:
+      instance:
+        label:
+          dimensions: Dimensão
+    dimhandler:
+      class:
+        title: 'Handler de dimensão'
+        description: ~
+    dimensionsets:
+      no_dimension: 'Não existe nenhuma dimensão'

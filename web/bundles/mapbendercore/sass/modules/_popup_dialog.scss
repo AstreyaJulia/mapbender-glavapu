@@ -1,0 +1,159 @@
+/* jQuery UI Dialog with Bootstrap classes */
+.mb-element-popup-dialog {
+  border-radius: 0;   // defeat .ui-corner-all
+
+  border: 1px solid #b3b3b3;
+  box-shadow:none;
+  background: #E4E4E4;
+  border-bottom-width: 5px;
+
+  .ui-button-icon-only .ui-button-icon-space {
+    display: none;
+  }
+
+  .ui-dialog-titlebar {
+    background-color: $buttonFirstActiveColor;
+    padding-top: 7px;
+    padding-bottom: 6px;
+    position: relative;
+    user-select: none;
+    &.modal-header {
+      // defeat collateral border-bottom rule from Bootstrap .modal-header (thanks vis-ui.js!)
+      border-bottom: none;
+    }
+
+    > .ui-button, > .ui-dialog-titlebar-buttonpane {
+      font-size: 16px;
+      text-shadow: rgb(255, 255, 255) 0 1px 0;  // same as Bootstrap .close
+      color: #000000;                           // same as Bootstrap .close
+    }
+    .ui-button.close {
+      // defeat collateral font-size rule from Bootstrap .close (thanks vis-ui.js!)
+      font-size: 16px;
+    }
+
+    .ui-dialog-title {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #fff;
+    }
+    a.ui-button {
+      // jquerydialogextendjs uses anchors instead of buttons
+      text-decoration: none;
+    }
+    .ui-button {
+      margin: 0;
+      line-height: 1;
+      vertical-align: initial;
+      font-weight: bold;
+      opacity: .2;
+      &:hover, &:focus {
+        opacity: .5;
+      }
+      .ui-icon.ui-icon-closethick:before {
+        font-family: FontAwesome;
+        content: "\f00d";
+      }
+      .ui-icon.ui-icon-extlink:before{
+        font-family: FontAwesome;
+        content: "\f0b2";
+      }
+      .ui-icon.ui-icon-triangle-1-s:before{
+        font-family: FontAwesome;
+        content: "\f062";
+      }
+      .ui-icon.ui-icon-newwin:before{
+        font-family: FontAwesome;
+        content: "\f063";
+      }
+    }
+    .ui-button-icon-only {
+      width: 1em;
+      height: 16px;  // not in base theme, must set a height; natural height will be 0 pixels
+      .ui-icon {
+        text-indent: 0;	// not in base theme (base theme uses sprites instead of glyph-based icons)
+      }
+    }
+  }
+  .ui-dialog-content {
+    /** Dialog resizing fix (jumpy scrollbar with tab-navigator in content, width auto-updated (badly) by vis-ui javascript...) */
+    width: auto !important;
+    overflow: auto;
+  }
+  > .modal-body {
+    // Tab-Navigator displaying if direct bounded to the window
+    > .mapbender-element-tab-navigator {
+      > .ui-tabs-nav {
+        background-color: #B6D39E;
+      }
+      > .tab-content {
+        padding: 0;
+        > form {
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  > .ui-dialog-buttonpane {
+    border-top: 1px solid #b3b3b3;    // Same as Bootstrap .modal-footer but darker (matching dialog outer border)
+    padding: 10px;                    // Add padding / also defeat different Bootstrap .modal-footer padding
+    button {
+      border-radius: 0;               // defeat corner-radius from both Bootsrap .btn / jQueryUI .ui-corner-all
+    }
+  }
+  .ui-resizable-handle {
+    position: absolute;
+  }
+  .ui-resizable-disabled .ui-resizable-handle,
+  .ui-resizable-autohide .ui-resizable-handle {
+    display: none;
+  }
+  .ui-resizable-n {
+    cursor: n-resize;
+    height: 7px;
+    width: 100%;
+    top: 0;
+  }
+  .ui-resizable-s {
+    cursor: s-resize;
+    height: 7px;
+    width: 100%;
+    bottom: 0;
+  }
+  .ui-resizable-e {
+    cursor: e-resize;
+    width: 7px;
+    right: 0;
+    top: 0;
+    height: 100%;
+  }
+  .ui-resizable-w {
+    cursor: w-resize;
+    width: 7px;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+  .ui-resizable-sw {
+    cursor: sw-resize;
+    width: 9px;
+    height: 9px;
+    bottom: 0;
+    left: 0;
+  }
+  .ui-resizable-nw {
+    cursor: nw-resize;
+    width: 9px;
+    height: 9px;
+    top: 0;
+    left: 0;
+  }
+  .ui-resizable-ne {
+    cursor: ne-resize;
+    width: 9px;
+    height: 9px;
+    top: 0;
+    right: 0;
+  }
+}

@@ -1,0 +1,164 @@
+{%- import 'MapbenderManagerBundle::macros/source.html.twig' as macros -%}
+
+<div{%- if itemLevel > 1 %} class="content-toggle-container closed"{%- endif -%}>
+  <div class="h4 clearfix{%- if itemLevel > 1 %} content-toggle clickable{%- endif -%}">
+    {%- if itemLevel > 1 -%}
+    <i class="pull-right fa fas fa-plus"></i>
+    {%- endif -%}
+    {{ layer.title }}
+  </div>
+  <div{%- if itemLevel > 1 %} class="content-toggle-target"{%- endif -%}>
+  <table>
+    <tbody>
+      {%- if layer.name -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.name" | trans }}:</th><td>{{ layer.name }}</td></tr>
+      {%- endif -%}
+      {%- if layer.title -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.title" | trans }}:</th><td>{{ layer.title }}</td></tr>
+      {%- endif -%}
+      {%- if layer.abstract -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.abstract" | trans }}:</th><td>{{ layer.abstract }}</td></tr>
+      {%- endif -%}
+      {%- if layer.queryable -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.queryable" | trans }}:</th><td>{{ layer.queryable }}</td></tr>
+      {%- endif -%}
+      {%- if layer.cascaded -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.cascaded" | trans }}:</th><td>{{ layer.cascaded }}</td></tr>
+      {%- endif -%}
+      {%- if layer.opaque -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.opaque" | trans }}:</th><td>{{ layer.opaque }}</td></tr>
+      {%- endif -%}
+      {%- if layer.noSubset -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.nosubset" | trans }}:</th><td>{{ layer.noSubset }}</td></tr>
+      {%- endif -%}
+      {%- if layer.fixedWidth -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.fixedwidth" | trans }}:</th><td>{{ layer.fixedWidth }}</td></tr>
+      {%- endif -%}
+      {%- if layer.fixedHeight -%}
+        <tr><th>{{"mb.wms.wmsloader.repo.layer.label.fixedheight" | trans }}:</th><td>{{ layer.fixedHeight }}</td></tr>
+      {%- endif -%}
+      {%- if show_all_bboxes | default(true)-%}
+          {%- if layer.latlonBounds or layer.boundingBoxes -%}
+            {{- macros.start_subsection('mb.wms.wmsloader.repo.layer.label.boundingbox' | trans) -}}
+              {%- for bbox in ([layer.latlonBounds] | filter(v => v)) | merge(layer.boundingBoxes) -%}
+              <tr><th>{{ bbox.srs }}</th><td>{{ bbox.minx }}, {{ bbox.miny }}, {{ bbox.maxx }}, {{ bbox.maxy }}</td></tr>
+              {%- endfor -%}
+            {{- macros.end_subsection() -}}
+          {%- endif -%}
+      {%- elseif layer.latlonBounds -%}
+        <tr>
+            <th>{{ 'mb.wms.wmsloader.repo.layer.label.boundingbox' | trans }}</th>
+            <td>{{ layer.latlonBounds.srs }} {{ layer.latlonBounds.minx }}, {{ layer.latlonBounds.miny }}, {{ layer.latlonBounds.maxx }}, {{ layer.latlonBounds.maxy }}</td>
+        </tr>
+      {%- endif -%}
+      {%- if layer.srs -%}
+        <tr>
+          <th>{{ "mb.wms.wmsloader.repo.layer.label.srs" | trans }}:</th>
+          <td>{{ layer.srs | join(', ') }}
+        </tr>
+      {%- endif -%}
+      {%- if layer.styles -%}
+        <tr><th colspan="2">{{ "mb.wms.wmsloader.repo.layer.label.styles" | trans }}:</th></tr>
+        {%- for style in layer.styles -%}
+          {{- macros.start_subsection() -}}
+            <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.name" | trans }}:</th><td>{{ style.name }}</td></tr>
+            <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.title" | trans }}:</th><td>{{ style.title }}</td></tr>
+            <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.abstract" | trans }}:</th><td>{{ style.abstract }}</td></tr>
+            <tr>
+              {%- if style.legendUrl -%}
+              <th>{{ "mb.wms.wmsloader.repo.layer.label.legendurl" | trans }}:</th>
+              <td>
+              {{ style.legendUrl.width }}X{{ style.legendUrl.height }}
+              {{ style.legendUrl.onlineResource.format }} {{ style.legendUrl.onlineResource.href }}
+              </td>
+              {%- endif -%}
+            </tr>
+          {{- macros.end_subsection() -}}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if layer.scale is defined and layer.scale and (layer.scale.min or layer.scale.max) -%}
+        {{- macros.start_subsection('mb.wms.wmsloader.repo.layer.label.scale' | trans) -}}
+        <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.min" | trans }}:</th><td>{% if layer.scale.min is not null %}{{ '%d'|format(layer.scale.min) }}{% endif %}</td></tr>
+        <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.max" | trans }}:</th><td>{% if layer.scale.max is not null %}{{ '%d'|format(layer.scale.max) }}{% endif %}</td></tr>
+        {{- macros.end_subsection() -}}
+      {%- endif -%}
+      {%- if layer.attribution is defined and layer.attribution -%}
+        {{- macros.start_subsection('mb.wms.wmsloader.repo.layer.label.attribution' | trans) -}}
+        <tr><th>{{ layer.attribution | length }} {{ "mb.wms.wmsloader.repo.layer.label.title" | trans }}:</th><td>{{ layer.attribution.title }}</td></tr>
+        <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.onlineresource" | trans }}:</th><td>{{ layer.attribution.onlineResource }}</td></tr>
+        <tr>
+          <th>{{ "mb.wms.wmsloader.repo.layer.label.logourl" | trans }}:</th>
+          <td>
+            {% if layer.attribution.logoUrl %}
+                {{ layer.attribution.logoUrl.width }}X{{layer.attribution.logoUrl.height }}
+                {{ layer.attribution.logoUrl.onlineResource.format }} {{ layer.attribution.logoUrl.onlineResource.href }}
+            {% endif %}
+          </td>
+        </tr>
+        {{- macros.end_subsection() -}}
+      {%- endif -%}
+      {%- if layer.identifier is defined and layer.identifier and (layer.identifier.authority or layer.identifier.value) -%}
+        {{- macros.start_subsection('mb.wms.wmsloader.repo.layer.label.attribution' | trans) -}}
+          {%- if layer.identifier.authority -%}
+            <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.authority" | trans }}:</th><td>{{ layer.identifier.authority }}</td></tr>
+          {%- endif -%}
+          {%- if layer.identifier.value -%}
+            <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.value" | trans }}:</th><td>{{ layer.identifier.value }}</td></tr>
+          {%- endif -%}
+        {{- macros.end_subsection() -}}
+      {%- endif -%}
+      {%- if layer.authority is defined and layer.authority -%}
+        <tr><th colspan="2">{{ "mb.wms.wmsloader.repo.layer.label.authority" | trans }}:</th></tr>
+        {%- for authority in layer.authority -%}
+          {{- macros.start_subsection() -}}
+            <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.url" | trans }}</th><td>{{ authority.url }}</td></tr>
+            {%- if authority.name is defined and authority.name -%}
+              <tr><th>{{ "mb.wms.wmsloader.repo.layer.label.name" | trans }}</th><td>{{ authority.name }}</td></tr>
+            {%- endif -%}
+          {{- macros.end_subsection() -}}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if layer.metadataUrl is defined and layer.metadataUrl -%}
+        {{- macros.start_subsection("mb.wms.wmsloader.repo.layer.label.metadataurl" | trans) -}}
+        {%- for metadataUrl in layer.metadataUrl -%}
+          <tr><td colspan="2">{{ metadataUrl.type }} {{ metadataUrl.onlineresource.format }} {{ metadataUrl.onlineresource.href }}</td></tr>
+        {%- endfor -%}
+        {{- macros.end_subsection() -}}
+      {%- endif -%}
+      {%- if layer.dimension is defined and layer.dimension -%}
+        {%- for dimension in layer.dimension -%}
+          {{- macros.start_subsection("mb.wms.wmsloader.repo.layer.label.dimension" | trans ~ ' ' ~ dimension.name) -}}
+          {#- @todo: provide translations for dimension field labels -#}
+          <tr><th>Units:</th><td>{{ dimension.units }}</td></tr>
+          <tr><th>Unit symbol:</th><td>{{ dimension.unitSymbol }}</td></tr>
+          <tr><th>Extent:</th><td>{{ dimension.extent }}</td></tr>
+          <tr><th>Default:</th><td>{{ dimension.default }}</td></tr>
+          <tr><th>Multiple values:</th><td>{{ dimension.multipleValues }}</td></tr>
+          <tr><th>Nearest value:</th><td>{{ dimension.nearestValue }}</td></tr>
+          <tr><th>Current:</th><td>{{ dimension.current }}</td></tr>
+          {{- macros.end_subsection -}}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if layer.dataUrl is defined and layer.dataUrl -%}
+        {{- macros.start_subsection("mb.wms.wmsloader.repo.layer.label.dataurl" | trans) -}}
+        {%- for dataUrl in layer.dataUrl -%}
+          <tr><td colspan="2">{{ dataUrl.format }} {{ dataUrl.href }}</td></tr>
+        {%- endfor -%}
+        {{- macros.end_subsection() -}}
+      {%- endif -%}
+      {%- if layer.featureListUrl is defined and layer.featureListUrl -%}
+        {{- macros.start_subsection("mb.wms.wmsloader.repo.layer.label.featurelisturl" | trans) -}}
+        {%- for featureUrl in layer.featureListUrl -%}
+          <tr><td colspan="2">{{ featureUrl.format }} {{ featureUrl.href }}</td></tr>
+        {%- endfor -%}
+        {{- macros.end_subsection() -}}
+      {%- endif -%}
+    </tbody>
+  </table>
+  <div class="indent">
+    {% for sublayer in layer.sublayer %}
+        {% include _self with {'layer': sublayer, 'itemLevel': itemLevel + 1 }%}
+    {% endfor %}
+  </div>
+  </div>
+</div>

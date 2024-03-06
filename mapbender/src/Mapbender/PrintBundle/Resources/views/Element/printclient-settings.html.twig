@@ -1,0 +1,28 @@
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default -fn-toggle-frame">{{ 'mb.core.printclient.btn.activate' | trans }}</button>
+</div>
+
+<form action="{{ submitUrl }}" method="post" target="{{ formTarget }}">
+    {% block printclient_form_top %}
+        {{ form_widget(settingsForm.custom_top) }}
+    {% endblock printclient_form_top %}
+
+    {{ form_row(settingsForm.template) }}
+    {{ form_row(settingsForm.quality) }}
+    {{ form_row(settingsForm.scale_select) }}
+    {{ form_row(settingsForm.rotation) }}
+
+    {{ form_widget(settingsForm.custom_bottom) }}
+
+    {% block printclient_form_bottom %}
+    {% if settingsForm.printLegend is defined %}
+        {{ form_row(settingsForm.printLegend) }}
+    {% endif %}
+    {% endblock printclient_form_bottom %}
+
+    <div class="hidden -fn-hidden-fields"></div>
+    <div class="text-right">
+        <input type="submit" class="btn btn-success btn-sm" value="{{ 'mb.actions.print' | trans }}" />
+        <button type="button" class="btn btn-danger btn-sm popupClose">{{ 'mb.actions.cancel' | trans }}</button>
+    </div>
+</form>

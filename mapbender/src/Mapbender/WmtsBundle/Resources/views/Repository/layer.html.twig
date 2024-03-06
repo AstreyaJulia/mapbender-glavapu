@@ -1,0 +1,44 @@
+<div class="content-toggle-container">
+  <div class="h4 clearfix content-toggle clickable">
+    <i class="pull-right fa fas fa-minus"></i>
+    {{ layer.title }}
+  </div>
+  <table class="content-toggle-target">
+      <tbody>
+        <tr>
+          <th>{{"mb.wmts.wmtsloader.repo.layer.label.title" | trans }}:</th>
+          <td>{{ layer.title }}</td>
+        </tr>
+        <tr>
+          <th>{{"mb.wmts.wmtsloader.repo.layer.label.identifier" | trans }}:</th>
+          <td>{{ layer.identifier }}</td>
+        </tr>
+        <tr>
+          <th>{{"mb.wmts.wmtsloader.repo.layer.label.formats" | trans }}:</th>
+          <td>{{ layer.getUniqueTileFormats() | join(', ') }}</td>
+        </tr>
+        {%- if layer.abstract -%}
+        <tr>
+          <th>{{"mb.wmts.wmtsloader.repo.layer.label.abstract" | trans }}:</th>
+          <td>{{ layer.abstract }}</td>
+        </tr>
+        {%- endif -%}
+        {%- if layer.latlonBounds -%}
+        <tr>
+          <th>{{"mb.wmts.wmtsloader.repo.layer.label.latlonbounds" | trans }}:</th>
+          <td>{{ layer.latlonBounds.srs }} {{ layer.latlonBounds.minx }}, {{ layer.latlonBounds.miny }}, {{ layer.latlonBounds.maxx }}, {{ layer.latlonBounds.maxy }}</td>
+        </tr>
+        {%- endif -%}
+        {%- if layer.tilematrixSetlinks -%}
+        <tr>
+          <th>{{"mb.wmts.wmtsloader.repo.layer.label.tilematrixsetlinks" | trans }}:</th>
+          <td>
+            {%- for tmsLink in layer.tilematrixSetlinks -%}
+              <div>{{ tmsLink.tileMatrixSet }} - {{ tmsLink.tileMatrixSetLimits }}</div>
+            {%- endfor -%}
+          </td>
+        </tr>
+        {%- endif -%}
+      </tbody>
+    </table>
+</div>

@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-xs-6 col-6">
+    {%- if application.layersets -%}
+      {% include 'MapbenderManagerBundle::fragments/filter-group.html.twig' with {filterTargetId: 'all-instances'} %}
+    {%- endif -%}
+  </div>
+  <div class="col-xs-6 col-6 text-right">
+    <span class="-fn-add-layerset hover-highlight-effect" data-url="{{ path("mapbender_manager_layerset_new", {'slug': application.slug}) }}" title="{{ 'mb.manager.admin.layerset.add' | trans}}">
+      <i class="fa fas fa-2x fa-plus"></i>
+    </span>
+  </div>
+</div>
+{% if application.layersets|length > 0 %}
+  <ul id="all-instances">
+    {% for layerset in application.layersets %}
+      <li class="filterItem">
+        <table class="application-component-table table table-condensed layersetTable" data-id="{{ layerset.id }}" data-layerset-title="{{ layerset.title }}">
+          <thead>
+            <tr class='doNotFilter'>
+              <th colspan="2" class="valign-top">
+                <h3>{{ layerset.title }}</h3>
+              </th>
+              <th colspan="3" class="text-right valign-top">
+                <p class="text-nowrap iconColumn">
+                {%- apply spaceless -%}
+                <a href="#" class="-fn-add-instance hover-highlight-effect"
+                   title="{{ "mb.manager.admin.instance.add" | trans }}"
+                   data-url="{{ path("mapbender_manager_application_listsources",{'slug': application.slug, 'layersetId': layerset.id}) }}">
+                  <i class="fa fas fa-plus"></i>
+                </a>
+                <a href="#" class="-fn-edit-layerset hover-highlight-effect"
+                   title="{{ "mb.manager.admin.layerset.edit" | trans }} {{layerset.title}}"
+                   data-url="{{ path("mapbender_manager_layerset_edit",{'slug': application.slug, 'layersetId': layerset.id}) }}">
+                    <i class="fa fas fa-cog"></i>
+                </a>
+                <span>
+                  <input id="toggle-layerset-selected-{{ layerset.id }}" type="checkbox"
+                     class="-fn-toggle-flag checkbox-icon-toggled"
+                     data-token="{{ csrf_token('layerset') }}"
+                     data-url="{{ path('mapbender_manager_layerset_setselected', {layerset: layerset}) }}"
+                     {{- layerset.selected ? ' checked' : '' -}}>
+                  <label for="toggle-layerset-selected-{{ layerset.id }}"
+                         class="fa fas fa-square-o checkbox-icon-toggled-label-off hover-highlight-effect"
+                         title="{{ 'mb.wms.wmsloader.repo.instancelayerform.label.unselectedtoc.help' | trans -}}"
+                  ></label>
+                  <label for="toggle-layerset-selected-{{ layerset.id }}"
+                         class="fa fas fa-check-square-o checkbox-icon-toggled-label-on hover-highlight-effect"
+                         title="{{ 'mb.wms.wmsloader.repo.instancelayerform.label.selectedtoc.help' | trans -}}"
+                  ></label>
+                </span>
+                <a href="#" class="-fn-delete-layerset hover-highlight-effect"
+                   title="{{ "mb.manager.admin.layerset.delete.title" | trans }} {{layerset.title}}"
+                   data-token="{{ csrf_token('layerset_delete') }}"
+                   data-url="{{ path("mapbender_manager_layerset_delete", {'slug': application.slug, 'layersetId': layerset.id}) }}">
+                    <i class="fa fa-trash-o far fa-trash-alt"></i>
+                </a>
+                {%- endapply -%}
+                </p>
+              </th>
+            </tr>
+            <tr class='doNotFilter'>
+              <th>{{ 'mb.manager.admin.layerset.id' | trans }}</th>
+              <th class="titleColumn">{{ 'mb.manager.admin.layerset.title' | trans }}</th>
+              <th class="sourceColumn">{{ 'mb.terms.source.singular' | trans }}</th>
+              <th class="typeColumn">{{ 'mb.manager.admin.layerset.type' | trans }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for assignment in layerset.getCombinedInstanceAssignments() %}
+            {%- with {
+              'instance': assignment.instance,
+              '_is_reusable': not assignment.instance.layerset,
+              } -%}{%- with {
+              '_sort_url': _is_reusable
+                  ? path('mapbender_manager_repository_assignmentweight', {'layerset': layerset, 'assignmentId': assignment.id})
+                  : path('mapbender_manager_repository_instanceweight', {'slug': application.slug,'layersetId': layerset.id, 'instanceId': assignment.instance.id})
+              ,
+              '_edit_url': _is_reusable
+                  ? (edit_shared_instances ? path("mapbender_manager_repository_unowned_instance_scoped", {"instanceId": instance.id, "layerset": layerset }) : null)
+                  : path("mapbender_manager_repository_instance",{"slug": application.slug, "instanceId": instance.id})
+                  ,
+              '_delete_url': _is_reusable
+                  ? path("mapbender_manager_application_detachinstance", {'layerset': layerset, 'assignmentId': assignment.id})
+                  : path("mapbender_manager_application_deleteinstance",{"slug": application.slug, 'layersetId': layerset.id, "instanceId": instance.id})
+              ,
+              '_toggle_url': _is_reusable
+                  ? path("mapbender_manager_repository_instanceassignmentenabled", {"assignmentId": assignment.id})
+                  : path('mapbender_manager_repository_instanceenabled', {'layerset': layerset, 'instanceId': assignment.instance.id})
+            } -%}
+              <tr class="sourceinst" data-id="{{ instance.id }}" data-href="{{ _sort_url }}" data-token="{{ csrf_token('layerset') }}">
+                <td class="text-right">{{ instance.id }}</td>
+                <td>{{ instance.title }}</td>
+                <td class="sourceColumn"><a href="{{ path('mapbender_manager_repository_view', {sourceId: instance.source.id}) }}">#{{ instance.source.id }} {{ instance.source.title }}</a></td>
+                <td class="text-nowrap"
+                  {%- if _is_reusable %}
+                    title="{{ "mb.terms.sourceinstance.reusable.singular" | trans }}"><i class="fa fas fa-wifi" ></i>
+                  {%- else -%}
+                     title="{{ "mb.terms.sourceinstance.bound.singular" | trans }}"><i class="fa fas fa-anchor"></i>
+                  {%- endif -%}
+                  &nbsp;{{ instance.source.type }}</td>
+                <td class="iconColumn">
+                  {%- apply spaceless -%}
+                  <a href="#" class="-fn-toggle-flag {{ assignment.enabled ? '-js-on' : '-js-off' }} -ft-toggle-active hover-highlight-effect"
+                       title="{{"mb.manager.admin.instance.show_hide"|trans}} {{instance.title}}"
+                       data-toggle-flag-icons="fa-eye-slash:fa-eye"
+                       data-token="{{ csrf_token('layerset') }}"
+                       data-url="{{ _toggle_url }}">
+                    <i class="fa fas {{ assignment.enabled ? 'fa-eye' : 'fa-eye-slash' }}"></i>
+                  </a>
+                  {%- if _edit_url -%}
+                  <a href="{{ _edit_url }}" class="hover-highlight-effect" title="{{"mb.manager.admin.instance.edit"|trans}} {{instance.title}}"><i class="fa fas fa-cog"></i></a>
+                  {%- endif -%}
+                  <a href="#"
+                     class="-fn-delete hover-highlight-effect"
+                     title="{{"mb.manager.admin.instance.delete.title"|trans}} {{instance.title}}"
+                     data-token="{{ csrf_token('layerset') }}"
+                     data-url="{{ _delete_url }}">
+                    <i class="fa fa-trash-o far fa-trash-alt"></i>
+                  </a>
+                  {%- endapply -%}
+                </td>
+              </tr>
+            {%- endwith -%}{%- endwith -%}
+            {% endfor %}
+            <tr class="dummy"{% if layerset.getCombinedInstanceAssignments() | length > 0 %} style="display: none;"{% endif %}">
+              <td></td>
+              <td colspan="3">{{ 'mb.manager.admin.instance.no_instance_added' | trans }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="alert alert-info">{{ 'mb.manager.admin.instance.no_layer_added' | trans }}</p>
+{% endif %}

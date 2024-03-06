@@ -1,0 +1,83 @@
+/** Frontend only */
+/**
+  Amend potentially undefined variables, if included directly from older template that doesn't define them.
+  See libs/_variables.scss for full set.
+ */
+$buttonFontSize: 100% !default;
+$buttonTextColor: $lightFontColor !default;
+$buttonBorderColor: darken($buttonSecondColor, 5%) !default;
+$buttonHoverColor: darken($buttonFirstColor, 5%) !default;
+$buttonHoverTextColor: $buttonTextColor !default;
+$buttonCriticalTextColor: $lightFontColor !default;
+$buttonCriticalBorderColor: darken($buttonCriticalSecondColor, 5%) !default;
+$buttonCriticalHoverColor: darken($buttonCriticalFirstColor, 5%) !default;
+$buttonCriticalHoverTextColor: $buttonCriticalTextColor !default;
+$hoverEffects: true !default;
+
+.button, .buttonCore, .linkButton {
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+}
+.button, .buttonCore {
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+}
+.button{
+  padding:($space/4) ($space/2);
+  line-height: 1;
+  margin:0;
+  text-decoration: none;
+
+  border-width: 1px;
+  border-style: solid;
+
+  &:focus {
+    box-shadow: 0 0 5px $buttonFirstActiveColor;
+  }
+}
+.button, .buttonColors {
+  color: $buttonTextColor;
+  background-color:$buttonFirstColor;
+  border-color: $buttonBorderColor;
+  @if $hoverEffects {
+    &:hover {
+      color: $buttonHoverTextColor;
+      background-color: $buttonHoverColor;
+    }
+  }
+}
+
+.button.critical, .buttonColorsCritical {
+  color: $buttonCriticalTextColor;
+  background-color:$buttonCriticalFirstColor;
+  border-color: $buttonCriticalBorderColor;
+  @if $hoverEffects {
+    &:hover {
+      color: $buttonCriticalHoverTextColor;
+      background-color: $buttonCriticalHoverColor;
+    }
+  }
+}
+
+.linkButton {
+  user-select: none;
+}
+
+.button-close {
+    position: absolute;
+    background: none;
+    border: none;
+    z-index: 3;
+    right: 0;
+    padding: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+
+    input:placeholder-shown + & {
+        display: none;
+    }
+}

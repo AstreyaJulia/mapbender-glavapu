@@ -1,0 +1,193 @@
+$panelBorderColor: #888 !default;
+$popupBorderColor: $panelBorderColor !default;
+$backgroundColor: #fff !default;
+$popupBackgroundColor: $backgroundColor !default;
+
+.popupHead {
+  .popupTitle {
+    font-size: 1.35rem;
+  }
+  border-bottom:dashed 1px $popupBorderColor;
+  &.draggable{cursor:move;}
+  margin:0 $space $space $space;
+  padding: $space 0 $space/2 0;
+}
+.popup .popupButtons {
+  text-align: right;
+  .button, .btn {
+    margin-left: 0.5em;
+  }
+}
+.fom-popup {
+  .popupButtons{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}
+.mapbender-popup {
+  display: flex;
+  flex-direction: column;
+  .popupHead, .footer {
+    flex: 0 0 auto; // no growing / shrinking, fit content
+  }
+  .popup-body {
+    flex: 1 1 auto;     // expand / shrink as required, initially fit content
+    padding: 0 $space;  // pad left and right, equal to footer lr padding / header lr margin
+    &.popupScroll {
+        // min-height: 200px;  // avoid squishing scrollable content too far vertically
+      .popupContent {
+        max-width: calc(100% - 20px);
+      }
+    }
+    .popupContent {
+      padding: 0;   // we already have our padding on the wrapping .popup-body
+      margin-bottom: $space;
+    }
+  }
+
+  .footer {
+    padding: $space;
+  }
+}
+
+.popupSubTitle{
+  @extend .smallText;
+}
+.fom-popup {
+  .popupContent {
+    padding:0 20px;
+  }
+  .popupButtons {
+    padding: 0 20px 20px 20px;
+  }
+}
+.popup {
+  &.ui-resizable {
+    min-width: 300px;
+    min-height: 250px;
+  }
+  position: absolute;
+  // Set initial position on page
+  left: 80px;
+  top: 100px;
+  .popupContainer.modal & {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  .popupHead .popupClose {
+    cursor: pointer;
+  }
+  &.ui-draggable {
+    // Overrule ui draggable's relative breaking layout on first movement
+    position: absolute !important;
+    .popupHead {
+      cursor:move;
+    }
+    &.ui-draggable-dragging {
+      opacity: 0.6;
+    }
+  }
+  &.fom-popup {
+    min-height: 250px;
+    width: $popupModalWidth;
+    padding-bottom:$space;
+  }
+  z-index: 100; // Same as .ui-front
+  background-color: $popupBackgroundColor;
+  border: 1px solid $popupBorderColor;
+  border-bottom-width: 5px;
+}
+
+.popupContainer.modal {
+    padding: $space*2.5;
+    display: block;
+    .popup {
+      margin: 0 auto;
+      max-height: 100%;
+      max-width: 100%;
+      &.fom-popup {
+        // .fom-popup buttons are styled with position: absolute; forcing max height on the poopup prevents them from
+        // leaking into content or going off-screen
+        height: 100%;
+      }
+    }
+    .overlay {
+      opacity: 0.8;
+      background: #222;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+}
+
+.ui-resizable-se {
+  position: absolute;
+  font-size: 16px;
+  right: -.135em;
+  bottom: -0.32em;
+  cursor: se-resize;
+  line-height: 1;
+
+  &:before{
+    @include transform(rotate(45deg));
+    font-family: "FontAwesome", "Font Awesome 5 Free", "Font Awesome 5 Pro";
+    content: "\f054";
+    display: block;
+  }
+}
+
+.popup .ui-resizable-se {
+  // Overrule jqueryui .ui-icon
+  text-indent: 0;
+  background: none;
+  width: auto;
+  height: auto;
+}
+.popupScroll{
+  overflow: auto;
+}
+.fom-popup .popupScroll {
+  @include absolute(70px 0 $space*3 0);
+}
+
+// Backport Bootstrap 4 modal-dialg-scroll to BS3
+// See https://getbootstrap.com/docs/4.3/components/modal/#scrolling-long-content
+.modal-dialog {
+  // Replace pixel margins with rem margins for compatibility
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.modal-dialog-scrollable {
+  display: flex;
+  max-height: calc(100% - 1rem);
+  .modal-content {
+    max-height: calc(100vh - 1rem);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .modal-body {
+    overflow-y: auto;
+    flex: 1 1 auto;
+  }
+  .modal-header, .modal-footer {
+    flex-shrink: 0;
+  }
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+  .modal-dialog-scrollable {
+    max-height: calc(100% - 3.5rem);
+    .modal-content {
+      max-height: calc(100vh - 3.5rem);
+    }
+  }
+}

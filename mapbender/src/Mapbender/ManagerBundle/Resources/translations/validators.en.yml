@@ -1,0 +1,8 @@
+mb:
+  core:
+    entity:
+      app:
+        screenshotfile:
+          format_error: This format is not supported!
+    layerset:
+      unique_title: This title is already used.

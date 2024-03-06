@@ -1,0 +1,142 @@
+@import "libs/mixins";
+@import "theme/mapbender3";
+
+.form-control-feedback {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 31px;
+  line-height: 31px;
+  text-align: center;
+  pointer-events: none;
+  margin-top: -29px;
+}
+
+body {
+  overflow: hidden;
+}
+
+.contentPane {
+  // prevent invisible contained elements from gaining size; a sized contentPane breaks popup
+  // positioning on drag / resize
+  height: 0;
+  overflow-y: hidden;
+}
+
+/*
+  Override bootstrap standard declaration
+*/
+.modal-body {
+  &.confirm-dialog{
+    padding: 5px;
+  }
+
+  .nav.nav-tabs.ui-tabs-nav {
+    padding: 0;
+  }
+
+  .form-group {
+    margin-bottom: 5px;
+    position: relative;
+  }
+  label {
+    color: #707070;
+  }
+  label, .form-control {
+    font-size: 11px
+  }
+  .form-control {
+    border-radius: 0;
+  }
+  hr {
+    display: block;
+    clear: both;
+    height: 1px;
+    border-bottom: 1px solid #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    $mainColor: #6FB536;
+    border-radius: 0;
+    font-size: 11px;
+    padding: 4px 9px;
+    border-color: #538E24;
+    background-color: $mainColor;
+    color: #ffffff;
+    &:hover, &:focus {
+      background-color: darken($mainColor, 10%);
+    }
+  }
+
+  // Tab-Navigator
+  .tab-content.ui-tabs-panel {
+    overflow: visible;
+  }
+  // Vis-ui legacy construct alert: fieldsets are used as a standin of .form-inline but with
+  // label placement above input.
+  // Luckily, these all have the form-group class added
+  fieldset.form-group {
+    > .form-group {
+      display: inline-block;
+      padding-right: 15px;
+    }
+  }
+}
+
+/**
+* Notify JS settings
+*/
+.notifyjs-container {
+  border-radius: 8px;
+  box-shadow: -2px 2px 16px 0px rgba(0, 0, 0, 0.75);
+}
+
+.logoContainer {
+  float: left;
+  .project-name {
+    font-size: 1.3rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.5em;
+  }
+}
+
+
+.toolBar {
+  &.top {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  &.bottom {
+    box-shadow: 0 -0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+}
+.logo {
+  max-height: 29px; //HACK; =line-height + toolBarItem vertical padding
+}
+.collapse-toggle {
+  color: #444;
+  background: #ccc;
+}
+
+.accordionContainer .accordion {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.sidePane {
+  font-size: 14px;
+}
+
+.autocompleteWrapper {
+  .form-control, .input-group-addon {
+    font-size: inherit;
+  }
+  .form-control {
+    padding: 5px;
+    height: auto;
+  }
+}

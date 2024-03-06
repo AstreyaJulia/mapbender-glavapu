@@ -1,0 +1,164 @@
+/* Main backend styles */
+@import "libs/mixins";
+
+@import 'bundles/mapbendermanager/sass/manager/manager.scss';
+@import 'bundles/mapbendermanager/sass/blocklist.scss';
+
+@import "bundles/mapbendermanager/sass/element/form.scss";
+@import "bundles/mapbendermanager/sass/element/layertree.scss";
+@import "bundles/mapbendermanager/sass/element/map.scss";
+@import "bundles/mapbendermanager/sass/element/printclient.scss";
+@import "bundles/mapbendermanager/sass/manager/services.scss";
+
+// ------------------------------------------------------- APPLICATIONS
+.inputWrapper.upload {
+  position: relative;
+  .btn {
+    // Increase z to enable cursor / color change on hoversm
+    position: relative;
+    z-index: 1;
+  }
+  .upload_label {
+    max-width: 60%;
+    text-overflow: ellipsis;
+    margin-left: 0.5em;
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+// ----------------------------------------------- NEW/EDIT APPLICATION
+.containerBaseData{
+  $height: 200px;
+  $width: 200px;
+
+  .screenshot-wrapper {
+    margin-bottom: 15px;  // = .form-group
+    @media (min-width: 992px) {
+      margin-top: 29px; // HACK: same as line-height of first label in application base data...
+      margin-bottom: 0;
+    }
+    .btn {
+      vertical-align: top;
+      margin-left: 0.5em;
+    }
+  }
+  // screen shot holder
+  .screenshot_img{
+    border-radius: 15px; // match .listFilterBoxes .preview-box
+    display: inline-block;
+
+    &.default {
+      background-color: #EAEAEA;  // Same background as .listFilterBoxes li .preview-box
+      img {
+        display: none;
+      }
+    }
+    &:not(.default) {
+      .placeholder-icon {
+        display: none;
+      }
+    }
+
+    .placeholder-icon {
+      font-size: 60px;
+    }
+
+    div.cell_edit{
+        display: table-cell;
+        vertical-align:middle;
+        text-align: center;
+        padding: 0;
+        margin:0;
+        height: 200px;
+        width: 200px;
+
+        img {
+         max-height: 100%;
+         max-width: 100%;
+         width: auto;
+         height: auto;
+         margin: 0 auto;
+        }
+      }
+  }
+}
+
+/**
+  Used for both elements and layersets.
+ */
+.application-component-table {
+  thead>tr>th:first-child {
+    padding-left: 0;
+  }
+  thead>tr>th.valign-top {
+    // Undo (highly specific) bootstrap vertical-align: bottom rule
+    vertical-align: top;
+  }
+  // Element region / Layerset titles use embedded h3 tags
+  thead h3 {
+    font-size: 140%;
+  }
+  thead .regionProperties {
+    .popover {
+      width: 22em;
+      min-width: 22em;
+      left: auto;
+    }
+  }
+  .regionProperties .form-horizontal {
+    .labelInput {
+      width: 45%;
+      margin-right: 4%;
+    }
+    .inputWrapper, .dropdown {
+      width: 50%;
+    }
+  }
+}
+// To prevent horizontal collapsse in drag-and-drop transit, .layersetTable and .elementsTable both need certain
+// cells to have forced expansion
+.elementsTable {
+  .typeColumn, .titleColumn {width: 49%;}
+  .screentype-icon.disabled {
+    opacity: 0.3;
+  }
+}
+
+.layersetTable {
+  th.titleColumn {
+    width: 60%;
+  }
+  th.sourceColumn {
+    width: 30%;
+  }
+  th:first-child {
+      max-width: 5em;
+  }
+  td.sourceColumn {
+    text-overflow: ellipsis;
+  }
+}
+
+.static-popover-wrap {
+  position: relative; // for anchoring of absolute-positioned .popover
+  .popover {
+    display: initial;
+    &.left {
+      right: 2em;
+    }
+    &.left, &.right {
+      top: -1em;
+      .arrow {
+        top: 1em;
+        margin-top: 0;
+      }
+    }
+  }
+}

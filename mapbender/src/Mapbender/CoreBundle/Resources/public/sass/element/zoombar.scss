@@ -1,0 +1,119 @@
+.mb-element-zoombar {
+  line-height: 1.25;
+  .anchored-element-wrap & {
+    // Avoid eating mouse interactions on map
+    // ZoomBar has multiple sub-blocks with different widths that
+    // need mouse events, but the outer box is quite a bit larger
+    // and contains transparent gaps where we want mouse events
+    // to fall through to the map canvas.
+    pointer-events: none;
+    .move-icon-wrap, .toolPane, .rotation {
+      pointer-events: initial;
+    }
+  }
+
+  text-align: center; // support automatic centering of children
+  .component + .component {
+    margin-top: 0.7rem;
+  }
+  .anchored-element-wrap-rt &, .anchored-element-wrap-rb & {
+    .move-icon-wrap {
+      text-align: right;
+    }
+  }
+  .anchored-element-wrap-lt &, .anchored-element-wrap-lb & {
+    .move-icon-wrap {
+      text-align: left;
+    }
+  }
+  /**
+  * Map tools
+  */
+  .toolPane{
+    display: inline-block; // for automatic width and centering
+    padding:5px;
+    @include border-radius($radius);
+  }
+  .toolPane {
+    font-size: 1.6rem;
+    .mobile-template & {
+      font-size: 2.3rem;
+    }
+    > li {
+      text-align: center;
+    }
+  }
+  ul.zoomSliderLevels {
+    font-size: 10px;
+    line-height: 1;
+    li {
+      display: block;
+    }
+    .zoom-level-gap {
+      opacity: $toolBarButtonDefaultOpacity;
+      margin-bottom: -1px;
+    }
+    li[data-zoom] > i.far:before {
+      /** @todo FA5: remove this hack
+          Both filled and unfilled circle icons
+          use the same codepoint \f111, but a different font
+          (.fas vs .far).
+          \f111 on FA4 is the filled circle (fa-circle-o)
+          .fa-circle-o is not defined on FA5
+          There is no forward compatible CSS solution for FA5
+          that would still work on FA4.
+      */
+      content: "\f10c";   // = FA4 fa-circle-o
+    }
+  }
+
+  .rotation {
+    svg {
+      height: 2.5em;
+      width: auto;
+      g {
+        fill: $toolBarFontColor;
+      }
+      // we only have one icon :)
+    }
+    .rotate-cw {
+      transform: scaleY(-1);
+    }
+    .rotate-ccw {
+      transform: scale(-1, -1);
+    }
+    display: inline-flex;
+    flex-direction: row;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 4px;
+    text-align: justify;
+    line-height: 54px;
+    .reset-rotation {
+      flex: 1 1 auto;
+      text-align: center;
+      display: inline-block;
+      font-size: 179%;
+    }
+    .rotate-cw, .rotate-ccw {
+      flex: 0 0 auto;
+      position: relative;
+      bottom: 0.6em;
+    }
+    .default-rotate-left-45 {
+      transform: rotate(-45deg);
+    }
+  }
+  .mobile-template & {
+    // Hide rotation icons in mobile to make rotation reset easier to hit
+    // We expect mobile users to prefer pinch rotation
+    .rotate-cw, .rotate-ccw {
+      display: none;
+    }
+  }
+  // If draggable = true
+  .move-icon-wrap {
+    cursor: move;
+  }
+}

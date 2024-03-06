@@ -1,0 +1,23 @@
+{% macro requestinformation(requestinformation, title) %}
+  <tr><th colspan="2">{{ title }}:</th></tr>
+  <tr>
+    <td colspan="2">
+      <table class="indent">
+        <tbody>
+          <tr><th>GET:</th><td>{{ requestinformation.httpGet }}</td></tr>
+          <tr><th>POST:</th><td>{{ requestinformation.httpPost }}</td></tr>
+          {%- if requestinformation.formats -%}
+          <tr>
+            <th>{{ "mb.wms.wmsloader.repo.macros.label.formats" | trans }}:</th>
+            <td>
+            {%- for format in requestinformation.formats -%}
+              <div>{{ format }}</div>
+            {%- endfor -%}
+            </td>
+          </tr>
+          {%- endif -%}
+        </tbody>
+      </table>
+    </td>
+  </tr>
+{% endmacro %}

@@ -1,0 +1,32 @@
+<div class="content-toggle-container closed">
+  <div class="panel-heading content-toggle clickable">
+    <div class="row no-gutters ">
+        <div class="col-xs-3 col-md-2">{{ dim.vars.data.name | default('undefined') }}</div>
+        <div class="col-xs-4 col-md-3 form-inline">
+            {{ form_row(dim.active) }}
+       </div>
+    </div>
+  </div>
+  <div class="content-toggle-target panel-body" data-diminstconfig="{{ dim.vars.diminstconfig | json_encode }}" data-origextent="{{ dim.vars.origextent }}">
+    <div class="row no-gutters">
+        <div class="col-xs-3">
+            {{ form_row(dim.multipleValues) }}
+        </div>
+        <div class="col-xs-3">
+            {{ form_row(dim.nearestValue) }}
+        </div>
+        <div class="col-xs-3">
+            {{ form_row(dim.current) }}
+        </div>
+    </div>
+    {{ form_row(dim.name) }}
+    {{ form_row(dim.units) }}
+    {{ form_row(dim.unitSymbol) }}
+    {{ form_row(dim.default) }}
+    {{ form_row(dim.extent) }}
+    {% if dim.extentRanges is defined %}
+        {{ form_row(dim.extentRanges) }}
+    {% endif %}
+    <div class="mb-slider"></div>
+  </div>
+</div>

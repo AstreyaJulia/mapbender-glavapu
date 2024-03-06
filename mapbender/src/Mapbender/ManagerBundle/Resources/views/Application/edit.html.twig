@@ -1,0 +1,74 @@
+{% extends "MapbenderManagerBundle::layouts/tabbed_form.html.twig" %}
+{%- set title = application.id ? application.title : ('mb.manager.admin.application.new.title' | trans) -%}
+{%- import 'MapbenderManagerBundle::macros/tabs.html.twig' as tab_macros -%}
+
+{% block css %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('components/codemirror/lib/codemirror.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('components/codemirror/theme/neo.css') }}"/>
+{% endblock %}
+
+{% block js %}
+  {{parent()}}
+  <script type="text/javascript" src="{{ asset('components/codemirror/lib/codemirror.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('components/codemirror/mode/yaml/yaml.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('components/codemirror/mode/css/css.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('components/codemirror/keymap/sublime.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('components/codemirror/addon/selection/active-line.js') }}"></script>
+
+  <script type="text/javascript" src="{{ asset('bundles/mapbendermanager/js/application-edit.js') }}"></script>
+{% endblock %}
+
+{%- block extra_action_buttons -%}
+  {%- if application.id -%}
+    <a class="btn btn-default action-button"
+       target="_blank"
+       href="{{ path('mapbender_core_application_application', {'slug': application.slug}) }}">
+        <i class="fa fas fa-lg fa-desktop"></i>
+        <span>{{ 'mb.manager.admin.application.view' | trans }}</span>
+    </a>
+  {%- endif -%}
+  {%- if not application.id -%}
+    <a class="btn btn-default action-button"
+       href="{{ path('mapbender_manager_application_import') }}">
+        <i class="fa fas fa-lg fa-upload"></i>
+        <span>{{ 'mb.manager.managerbundle.import_application' | trans }}</span>
+    </a>
+  {%- endif -%}
+{%- endblock -%}
+
+{% block tab_headers %}
+    {{- tab_macros.tab_header('BaseData', 'mb.manager.admin.application.edit.base_data', 'active') -}}{#- #tabBaseData -#}
+    {%- if application.id -%}
+    {{- tab_macros.tab_header('Layout', 'mb.manager.admin.application.layouts') -}}{#- #tabLayout -#}
+    {{- tab_macros.tab_header('Layers', 'mb.manager.admin.application.layersets') -}}{#- #tabLayers -#}
+    {%- endif -%}
+    {{- tab_macros.tab_header('CustomCss', 'mb.manager.admin.application.custom_css') -}}{#- #tabCustomCss -#}
+    {{- tab_macros.tab_header('Security', 'mb.manager.admin.application.security.title') -}}{#- #tabSecurity -#}
+{% endblock %}
+{% block tab_containers %}
+      <div{{ tab_macros.tab_content_attributes('BaseData', 'active containerBaseData') }}>{#- #containerBaseData -#}
+          {%- if not application.id -%}
+            <p class="alert alert-info">{{"mb.manager.admin.application.create_use" | trans }}</p>
+          {%- endif -%}
+        <div class="row">
+        {% include 'MapbenderManagerBundle:Application:form-basic.html.twig' %}
+        </div>
+      </div>
+    {%- if application.id -%}
+      <div{{ tab_macros.tab_content_attributes('Layout') }}>{#- #containerLayout -#}
+        {% include 'MapbenderManagerBundle:Application:form-elements.html.twig' %}
+      </div>
+      <div{{ tab_macros.tab_content_attributes('Layers') }}>{#- #containerLayers -#}
+        {% include 'MapbenderManagerBundle:Application:form-layersets.html.twig' %}
+      </div>
+    {%- endif -%}
+      <div{{ tab_macros.tab_content_attributes('CustomCss') }}>{#- #containerCustomCss -#}
+        {% include 'MapbenderManagerBundle:Application:form-css.html.twig' %}
+      </div>
+      <div{{ tab_macros.tab_content_attributes('Security') }}>{#- #containerSecurity -#}
+        {% block securityTab %}
+          {% include 'MapbenderManagerBundle:Application:form-security.html.twig' %}
+        {% endblock %}
+      </div>
+{% endblock %}

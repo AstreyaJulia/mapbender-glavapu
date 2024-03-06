@@ -1,0 +1,89 @@
+$backgroundColor: #fff;
+
+@import "libs/mixins";
+@import 'bundles/mapbendermanager/sass/manager/manager.scss';
+
+.login-wrapper, .justify-v {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+.justify-v {
+  justify-content: center;
+}
+
+.authWrapper, .login-wrapper {
+  // Fix form fields spilling into transparent area on narrow screens
+  background-color: inherit;
+}
+
+.authWrapper {
+  .login-wrapper {
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    width: 50vw;
+    min-width: 40rem;
+    @media screen and (max-width: #{40 * $fontSize}) {
+      min-width: 100vw;
+    }
+    max-width: 100vw;
+    height: 100vh;
+  }
+
+  .container-login-img {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+  }
+
+  .loginBox {
+    font-size: 1.2rem;
+    width: calc(130% - 30vw);
+    min-width: 30%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+     .login-button {
+       border-radius: 10px;
+       min-width: 50%;
+     }
+  }
+
+  .logoContainer {
+    display: block;
+    margin: 0 auto 1rem;
+    text-align: center;
+    width: 70%;
+    .logo {
+      max-height: 120px;
+      max-width: 100%;
+    }
+  }
+
+  p, .linkButton {
+    margin-bottom: 1em;
+  }
+  .form-wrapper {
+    margin-bottom: 1.5em;
+  }
+  .linkButton {
+    display: block;
+  }
+}
+
+// Mobile resonsive
+@media only screen and (max-width: 1024px) {
+  .authWrapper {
+
+    .logoContainer {
+      .logo {
+        max-height: 10vh;
+      }
+    }
+  }
+}

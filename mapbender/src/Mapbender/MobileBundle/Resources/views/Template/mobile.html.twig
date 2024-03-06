@@ -1,0 +1,47 @@
+{% extends "MapbenderCoreBundle::frontend.html.twig" %}
+{% block mobilejs %}
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    {%- set scaleFactor = 1 -%}
+    {{ parent() }}
+{% endblock %}
+
+{% block frontend_content %}
+  <div id="templateWrapper" class="templateWrapper">
+      {% block splash_screen %}
+      <div id="splash-screen" class="splashScreenWrapper">
+        <div class="splashScreen">
+          <img class="app-screenshot" src="{{ asset(uploads_dir ~ '/' ~application.screenshot) }}" alt="{{ application.title }}" title="{{ application.description }}">
+          <h1 class="app-title" title="{{ application.description }}">{{ application.title }}</h1>
+        </div>
+      </div>
+      {% endblock %}
+
+      <div id="content" class="contentPane">
+          {{ map_markup(application) | raw }}
+          {{ unanchored_content_elements(application) | raw }}
+      </div>
+      <div class="map-overlay">
+        <div class="map-overlay-column">
+          <div class="overlay-fill">
+            <div class="anchored-element-wrap anchored-element-wrap-lt">{{ anchored_content_elements(application, 'left-top') | raw }}</div>
+            <div class="anchored-element-wrap anchored-element-wrap-rt">{{ anchored_content_elements(application, 'right-top') | raw }}</div>
+            <div class="anchored-element-wrap anchored-element-wrap-lb">{{ anchored_content_elements(application, 'left-bottom') | raw }}</div>
+            <div class="anchored-element-wrap anchored-element-wrap-rb">{{ anchored_content_elements(application, 'right-bottom') | raw }}</div>
+            <div id="mobilePane" class="mobilePane" data-state="">
+                <div class="panel-content">
+                  <h2 class="contentTitle ui-helper-clearfix">
+                      <span class="-js-element-title"></span>
+                      <i id="mobilePaneClose" class="mobileClose fa fas fa-times pull-right"></i>
+                  </h2>
+                  <div class="mobileContent">
+                      {{ region_content(application, 'mobilePane') | raw }}
+                  </div>
+              </div>
+            </div>
+          </div>
+            {{ region_markup(application, 'footer', true) | raw }}
+        </div>
+      </div>
+  </div>
+{% endblock %}

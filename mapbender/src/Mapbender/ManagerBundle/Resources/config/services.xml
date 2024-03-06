@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="mapbender.manager.element_form_factory.service.class">Mapbender\ManagerBundle\Component\ElementFormFactory</parameter>
+        <parameter key="mapbender.strict.element_api.form_type">%mapbender.strict.element_api%</parameter>
+        <!-- maintain status quo for anonymous grants for unfinshed Application grant work
+             @todo: finish Application grant remodeling, use 'published' exclusively, purge anoymous grants in
+                    DB initialization -->
+        <parameter key="fom.acl_assignment.show_anonymous">true</parameter>
+        <!-- populated by compiler passes -->
+        <parameter type="collection" key="mapbender.manager.menu.items" />
+        <parameter type="collection" key="mapbender.manager.menu.route_prefix_blacklist" />
+    </parameters>
+    <services>
+        <service id="mapbender.manager.element_form_factory.service" class="%mapbender.manager.element_form_factory.service.class%">
+            <argument type="service" id="mapbender.element_filter" />
+            <argument type="service" id="form.factory" />
+            <argument type="service" id="form.registry" />
+            <argument>%mapbender.strict.element_api.form_type%</argument>
+        </service>
+        <service id="mapbender.twig.manager.element" class="Mapbender\ManagerBundle\Extension\Twig\ElementExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="mapbender.element_inventory.service" />
+        </service>
+        <service id="mapbender.twig.manager.menu" class="Mapbender\ManagerBundle\Extension\Twig\MenuExtension">
+            <tag name="twig.extension"/>
+            <argument>%mapbender.manager.menu.items%</argument>
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="security.authorization_checker" />
+        </service>
+        <service id="mapbender.twig.manager.acl" class="Mapbender\ManagerBundle\Extension\Twig\AclExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="security.acl.provider" />
+        </service>
+
+        <service id="mapbender.twig.manager.application_region_title" class="Mapbender\ManagerBundle\Extension\Twig\ApplicationRegionTitleExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="mapbender.application_template_registry" />
+        </service>
+        <service id="mapbender.form_type.application" class="Mapbender\ManagerBundle\Form\Type\ApplicationType">
+            <tag name="form.type" />
+            <argument>%mapbender.force_engine%</argument>
+        </service>
+        <service id="mapbender.form_type.application_template_choice" class="Mapbender\ManagerBundle\Form\Type\Application\TemplateChoiceType">
+            <tag name="form.type" />
+            <argument type="service" id="mapbender.application_template_registry" />
+        </service>
+        <service id="mapbender.form_type.application.region_properties" class="Mapbender\ManagerBundle\Form\Type\Application\RegionPropertiesType">
+            <tag name="form.type" />
+            <argument type="service" id="mapbender.application_template_registry" />
+        </service>
+        <service id="mabender.form_type.source_instance_item" class="Mapbender\ManagerBundle\Form\Type\SourceInstanceItemType">
+            <tag name="form.type" />
+            <argument type="service" id="mapbender.source.typedirectory.service" />
+        </service>
+        <service id="mapbender.form_type.application_choice" class="Mapbender\ManagerBundle\Form\Type\ApplicationChoiceType">
+            <tag name="form.type" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="mapbender.application.yaml_entity_repository" />
+            <argument type="service" id="security.authorization_checker" />
+        </service>
+        <service id="mapbender.form_type.source_selection" class="Mapbender\ManagerBundle\Form\Type\HttpSourceSelectionType">
+            <tag name="form.type" />
+            <argument type="service" id="mapbender.source.typedirectory.service" />
+        </service>
+        <service id="mapbendeer.form_type.control_target" class="Mapbender\ManagerBundle\Form\Type\Element\ControlTargetType">
+            <tag name="form.type" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="mapbender.element_filter" />
+        </service>
+        <service id="mapbender.form_type.button_icon" class="Mapbender\CoreBundle\Element\Type\IconClassType"
+            lazy="true">
+                <tag name="form.type" />
+            <argument type="service" id="mapbender.icon_index" />
+        </service>
+    </services>
+</container>

@@ -1,0 +1,8 @@
+mb:
+  core:
+    entity:
+      app:
+        screenshotfile:
+          format_error: Bu format desteklenmiyor!
+    layerset:
+      unique_title: Bu ismi zaten var.

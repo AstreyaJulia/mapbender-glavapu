@@ -1,0 +1,4 @@
+{{ form_row(form.published) }}
+{% if form.acl is defined %}
+    {{ form_row(form.acl, {label: false}) }}
+{% endif %}

@@ -1,0 +1,25 @@
+<tr class="item level0" >
+    <td class="level1 itemType"><i class="itemType fa fas fa-caret-right"></i></td>
+    <td class="titleColumn" title="{{ form.title.vars.label | trans }}">{{ form_widget(form.title) }}</td>
+    {%- block layer_checkbox_cells -%}
+    {{ form_row(form.active) }}
+    {{ form_row(form.allowselected) }}
+    {{ form_row(form.selected) }}
+    {%- endblock -%}
+    <td class="text-right">
+    <div class="static-popover-wrap">
+      <div class="infoMsgBox popover left hidden">
+        <div class="arrow"></div>
+        <div class="popover-content form-horizontal">
+        {%- block layer_details_content -%}
+          {%- set layer = form.vars.data -%}
+          {{- form_row(form.displayId, {'value': layer.sourceInstance.source.id ~ '-' ~ layer.sourceItem.id ~ '/' ~ layer.sourceInstance.id ~ '-' ~ layer.id}) -}}
+          {{- form_row(form.displayName) -}}
+          {{- form_row(form.supportedCrs) -}}
+        {%- endblock -%}
+        </div>
+      </div>
+      <span class="-fn-toggle-layer-detail clickable" title="{{'mb.wms.wmsloader.repo.instancelayerform.label.moreinfo'|trans}}"><i class="fa fas fa-ellipsis-h"></i></span>
+    </div>
+    </td>
+</tr>

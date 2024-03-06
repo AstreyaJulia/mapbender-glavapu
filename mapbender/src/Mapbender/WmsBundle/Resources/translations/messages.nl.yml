@@ -1,0 +1,157 @@
+mb:
+  wms:
+    wmsloader:
+      dialog:
+        label:
+          example: Voorbeeld
+          wmsurl: 'Service URL'
+          wmsuser: Gebruiker
+          wmspass: Wachtwoord
+      error:
+        load: 'WMSLoader: WMS capabilities kan niet geladen worden!'
+      repo:
+        macros:
+          label:
+            formats: Formaten
+        view:
+          label:
+            metadata: Metadata
+            contact: Contact
+            details: Details
+            layers: Lagen
+            title: Titel
+            name: Naam
+            version: Versie
+            originurl: 'Oorspronkelijke URL'
+            abstract: Abstract
+            onlineresource: 'Online Resource'
+            exceptionformats: 'Exceptie Formaten'
+            fees: Fees
+            accessconstraints: 'Toegangs beperkingen'
+            person: Persoon
+            organization: Organisatie
+            position: Positie
+            telephone: Telefoon
+            facsimile: Faxnummer
+            email: Email
+            address: Adres
+            addresstype: 'Adres-type'
+            city: Plaats
+            state: Provincie
+            postcode: Postcode
+            country: Land
+          message:
+            cautionscalehint: 'Pas op: Schaal berekeningen zijn onderworpen aan gelimiteerde Schaal-Hint resolutie in WMS 1.1.1!'
+        instance:
+          btn:
+            save: Bewaar
+            cancel: Annuleren
+          label:
+            originurl: 'Oorspronkelijke URL'
+            visible: Zichtbaar
+            basesource: Basis bron
+            proxy: Proxy
+            transparency: Doorzichtigheid
+            tiled: Getegeld (Tiled)
+            title: Titel
+            minsc: Minimale schaal
+            maxsc: Maximale schaal
+            active: actief
+            select: selecteer
+            info: info
+            toggle: wissel (toggle)
+            reorder: herorder
+            allow: 'sta toe'
+            'on': aan
+            buffer: BBOX factor
+            ratio: Tile buffer
+          vendorspecific:
+            label: Leverancier-specifiek
+        preview:
+          title:
+            servicerepository: 'Service Repository'
+          label:
+            load: Laad
+        layer:
+          label:
+            name: Naam
+            title: Titel
+            abstract: Abstract
+            queryable: Zoekbaar
+            cascaded: Gecascadeerd
+            opaque: Opaque
+            nosubset: NoSubset
+            fixedwidth: FixedWidth
+            fixedheight: FixedHeight
+            latlonbounds: LatLonBounds
+            boundingbox: BoundingBox
+            srs: SRS
+            styles: Stijlen
+            legendurl: 'Legenda URL'
+            scale: Schaal
+            min: Min
+            max: Max
+            scalehint: 'Schaal hint'
+            attribution: Attribution
+            onlineresource: 'Online bron'
+            logourl: 'Logo URL'
+            identifier: Identifier
+            authority: Autoriteit
+            url: URL
+            value: Waarde
+            metadataurl: 'Metadata URL'
+            dimension: Dimensie
+            extent: Extent
+            dataurl: 'Data URL'
+            featurelisturl: 'Kenmerklijst URL'
+        instancelayerform:
+          label:
+            layerstitle: 'Laag titel'
+            minscale: Minschaal
+            maxsclase: Maxschaal
+            active: actief
+            allowselecttoc: 'Sta selecteren van TOC toe'
+            selectedtoc: 'Geselecteerd op TOC'
+            allowinfotoc: 'Sta kenmerkinfo toe op TOC'
+            infotoc: 'Kenmerkinfo op TOC'
+            allowtoggletoc: 'Sta Toggle bij TOC toe'
+            toggletoc: 'Toggle op TOC'
+            allowreordertoc: 'Sta herorder bij TOC toe'
+            moreinfo: 'Meer informatie'
+            id:
+              title: ID
+              description: 'Instantie Laag Id in de vorm: SourceId-SourceLayerId/InstanceId-InstanceLayerId'
+            layersname: 'Laag naam'
+            style: Stijl
+      class:
+        title: 'WMS lader'
+        description: 'Laad een WMS via de getCapabilities-Request'
+      admin:
+        label:
+          splitlayers: 'Splits lagen'
+    repository:
+      parser:
+        couldnotparse: 'Kon Capabilities Document niet parsen'
+        not_supported_document: 'Niet-ondersteund Capabilities Document'
+        not_supported_version: 'De WMS version wordt niet ondersteund'
+    metadata:
+      section:
+        common:
+          _title: Algemeen
+        useconditions:
+          _title: 'Gerbuiksvoorwaarden'
+        contact:
+          _title: Contact
+        items:
+          _title: Laag
+          name: Naam
+    repo:
+      instance:
+        label:
+          dimensions: Dimensies
+    dimhandler:
+      class:
+         title: 'Dimensie afhandelaar'
+         description: 'Dimensie afhandelaar groepen en roept dimensie ondersteund op kaart aan'
+    dimensionsets:
+      no_dimension: 'geen dimensie'

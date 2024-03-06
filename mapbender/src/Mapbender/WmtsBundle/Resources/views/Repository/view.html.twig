@@ -1,0 +1,38 @@
+{% extends "MapbenderManagerBundle:Repository:source/view.html.twig" %}
+{%- import 'MapbenderManagerBundle::macros/tabs.html.twig' as tab_macros -%}
+
+{% block tab_headers %}
+  {{ parent() }}
+  {{- tab_macros.tab_header('Matrixsets', 'mb.wmts.wmtsloader.repo.view.label.matrixsets') -}}{#- #tabMatrixsets -#}
+  {%- if source.type == 'WMTS' and source.themes | length -%}
+    {{- tab_macros.tab_header('Theme', 'mb.wmts.wmtsloader.repo.view.label.theme') -}}{#- #tabTheme -#}
+  {% endif %}
+{% endblock %}
+
+{% block metadata_content %}
+  {% include 'MapbenderWmtsBundle:Repository:source/view-metadata.html.twig' %}
+{% endblock metadata_content %}
+{% block details_content %}
+  {% include 'MapbenderWmtsBundle:Repository:source/view-details.html.twig' %}
+{% endblock %}
+{% block layers_content %}
+  {% for layer in source.layers %}
+    {% include "MapbenderWmtsBundle:Repository:layer.html.twig" with {'layer': layer, 'itemLevel': 1 }%}
+  {% endfor %}
+{% endblock layers_content %}
+
+{% block tab_containers %}
+  {{ parent() }}
+  <div{{ tab_macros.tab_content_attributes('Matrixsets', 'serviceContainer') }}>{#- #containerMatrixsets -#}
+    {% for tilematrixset in source.tilematrixsets %}
+      {% include "MapbenderWmtsBundle:Repository:tilematrixset.html.twig" with {'tilematrixset': tilematrixset }%}
+    {% endfor %}
+  </div>
+  {%- if source.type == 'WMTS' and source.themes | length -%}
+    <div{{ tab_macros.tab_content_attributes('Theme', 'serviceContainer') }}>{#- #containerTheme -#}
+      {% for theme in source.themes %}
+        {% include "MapbenderWmtsBundle:Repository:theme.html.twig" with {'theme': theme, 'itemLevel': 1 }%}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock tab_containers %}

@@ -1,0 +1,79 @@
+{% extends "MapbenderManagerBundle::layouts/tabbed.html.twig" %}
+{%- import 'MapbenderManagerBundle::macros/tabs.html.twig' as tab_macros -%}
+
+{%- block js -%}
+    {{- parent() -}}
+    <script type="text/javascript" src="{{ asset('bundles/mapbendermanager/js/service-list.js') }}"></script>
+{%- endblock -%}
+
+{% block heading %}
+    {%- if grants is not empty -%}
+        <div class="dropdown bs-dropdown pull-right">
+            <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="fa fas fa-bars"></i></button>
+            <ul class="dropdown-menu">
+                {%- if grants.edit | default(false) -%}
+                <li><a href="{{ path("mapbender_manager_repository_updateform", {"sourceId": source.id}) }}"
+                    ><i class="fa fa-fw fas fa-refresh fa-sync-alt"></i> {{ 'mb.manager.admin.source.update' | trans }}</a></li>
+                <li><a href="{{ path('mapbender_manager_sourceinstance_createshared', {'source': source}) }}"
+                    ><i class="fa fa-fw fas fa-wifi"></i> {{ 'mb.manager.sourceinstance.create_reusable' | trans }}</a></li>
+                {%- endif -%}
+                {%- if grants.delete | default(false) -%}
+                    {%- if (grants | length) > 1 -%}
+                        <li role="separator" class="divider"></li>
+                    {%- endif -%}
+                    <li class="label-danger"><a href="#"
+                           class="-fn-delete"
+                           data-url="{{ path("mapbender_manager_repository_delete",{"sourceId": source.id}) }}"
+                           data-id="{{ source.id }}"><i class="fa fa-fw fa-trash-o far fa-trash-alt"></i> {{ 'mb.actions.delete' | trans}}</a>
+                {%- endif -%}
+            </ul>
+        </div>
+    {%- endif -%}
+    {{ parent() }}
+    <div class="clear"></div>
+{% endblock heading %}
+
+{% block tab_container_contact %}
+    <div{{ tab_macros.tab_content_attributes('Contact', 'serviceContainer') }}>{#- #containerContact -#}
+        {% block contact_content %}
+        {% include 'MapbenderManagerBundle:Repository:source/view-contact.html.twig' with {'contact' : source.contact} %}
+        {% endblock contact_content %}
+    </div>
+{% endblock tab_container_contact %}
+
+  {# @todo: commonly used labels should NOT be in WmsBundle and shoult NOT associate with 'wmsloader' #}
+  {% block tab_headers %}
+      {{- tab_macros.tab_header('MetaData', 'mb.wms.wmsloader.repo.view.label.metadata', 'active') -}}{#- #tabMetaData -#}
+      {{- tab_macros.tab_header('Applications', 'mb.terms.application.plural') -}}{#- #tabApplications -#}
+      {%- if source.contact is defined and source.contact -%}
+      {{- tab_macros.tab_header('Contact', 'mb.wms.wmsloader.repo.view.label.contact') -}}{#- #tabContact -#}
+      {%- endif -%}
+      {{- tab_macros.tab_header('Service', 'mb.wms.wmsloader.repo.view.label.details') -}}{#- #tabService -#}
+      {{- tab_macros.tab_header('Layers', 'mb.wms.wmsloader.repo.view.label.layers') -}}{#- #tabLayers -#}
+  {% endblock tab_headers %}
+
+    {% block tab_containers %}
+        <div{{ tab_macros.tab_content_attributes('MetaData', 'active serviceContainer') }}>{#- #containerMetaData -#}
+            {% block metadata_content %}
+                {% include 'MapbenderManagerBundle:Repository:source/view-metadata-common.html.twig' %}
+            {% endblock metadata_content %}
+        </div>
+        <div{{ tab_macros.tab_content_attributes('Applications', 'serviceContainer') }}>{#- #containerApplications -#}
+            {% block applications_content %}
+                {% include 'MapbenderManagerBundle:Repository:source/applications.html.twig' %}
+            {% endblock applications_content %}
+        </div>
+        {%- if source.contact is defined and source.contact -%}
+            {{- block('tab_container_contact') -}}
+        {%- endif -%}
+        <div{{ tab_macros.tab_content_attributes('Service', 'serviceContainer') }}>{#- #containerService -#}
+            {% block details_content %}
+                {% include 'MapbenderManagerBundle:Repository:source/view-details-common.html.twig' %}
+            {% endblock details_content %}
+        </div>
+        <div{{ tab_macros.tab_content_attributes('Layers', 'serviceContainer') }}>{#- #containerLayers -#}
+            {% block layers_content %}
+            {# no default / common ground content #}
+            {% endblock layers_content %}
+        </div>
+    {% endblock tab_containers %}

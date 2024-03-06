@@ -1,0 +1,91 @@
+$backgroundColor: #fff !default;
+$darkFontColor: #3f3f3f !default;
+$textColor: $darkFontColor !default;
+$panelBorderColor: #888 !default;
+
+.mb-element-basesourceswitcher {
+  .basesourcegroup, .basesourcesetswitch {
+    cursor: pointer;
+  }
+  .state-check {
+    margin-right: 0.5em;
+  }
+
+  &.toolBarItem {
+    // Reset toolbar text alignment (vs .itemsRight / .itemsCenter)
+    position: relative;
+    z-index: 1;
+    .state-check {
+      display: none;
+    }
+    .basesourcegroup > .group-title, .basesourcesetswitch {
+      padding: 5px;
+    }
+    .basesourcegroup, .basesourcesetswitch {
+      background-color: mix($backgroundColor, $textColor, 80%);
+      &:hover, &[data-state="active"]{
+        background-color: $backgroundColor;
+      }
+      @include transition(all .2s ease-in-out);
+      border:solid 1px $panelBorderColor;
+    }
+    .basesourcegroup, > .basesourcesetswitch {
+      display: inline-block;
+      border-right-width: 0;
+      &:last-child {
+        border-right-width: 1px;
+      }
+    }
+    .basesourcegroup {
+      position: relative;
+    }
+    .basesourcesubswitcher {
+      display: none;
+      position: absolute;
+      right: -1px;  // Compensate for border
+    }
+    .basesourcegroup:hover .basesourcesubswitcher {
+      display: initial;
+    }
+  }
+  .toolBar.top & {
+    .basesourcegroup .basesourcesetswitch {
+      border-bottom-width: 0;
+      &:last-child {
+        border-bottom-width: 1px;
+        border-bottom-left-radius: $radius;
+        border-bottom-right-radius: $radius;
+      }
+    }
+    .basesourcegroup, > .basesourcesetswitch {
+      &:first-child {
+        border-top-left-radius: $radius;
+      }
+      &:last-child{
+        border-top-right-radius: $radius;
+      }
+    }
+  }
+  .toolBar.bottom & {
+    .basesourcesubswitcher {
+      // Make the child list "drop up"
+      bottom: 100%;
+    }
+  }
+  .anchored-element-wrap & {
+    background-color: $backgroundColor;
+    font-size: 1.6rem;
+    border-radius: 3px;
+    padding: 5px;
+    text-align: left;
+  }
+  .far.fa-circle:before {
+    /** @todo FA5: remove this hack
+      In FA5 we want unmangled .far.fa-circle with codepoint \f111.
+      Codepoint \f111 is a solid filled circle on FA4.
+      There is no forward compatible markup that
+      works for both FA4 and FA5.
+     */
+    content: "\f10c"; // = FA4 .fa-circle-o
+  }
+}

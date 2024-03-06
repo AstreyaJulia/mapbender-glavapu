@@ -1,0 +1,22 @@
+{
+    "name": "wheregroup/cookieconsent",
+    "description": "A free solution to the EU Cookie Law https://cookieconsent.insites.com/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Silktide Ltd."
+        }
+    ],
+    "type": "component",
+    "require": {
+        "robloach/component-installer": "^0.2"
+    },
+    "extra": {
+        "component": {
+            "files": [
+                "build/*.js",
+                "build/*.css"
+            ]
+        }
+    }
+}

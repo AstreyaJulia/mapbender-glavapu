@@ -1,0 +1,23 @@
+.mb-element-searchrouter {
+  .search-results {
+    font-size: 11px;
+    overflow: auto;
+    table {
+      thead {
+        background-color: #c0c0c0;
+      }
+    }
+  }
+  .search-action-buttons {
+    text-align: right;
+  }
+  .popup & .search-action-buttons {
+    display: none;
+  }
+  .result-counter {
+    text-align: right;
+  }
+  .search-action-buttons, .result-counter {
+    margin-bottom: 5px;
+  }
+}

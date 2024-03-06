@@ -1,0 +1,18 @@
+(function($) {
+
+$.widget('mapbender.mb{{ widgetName }}', $.mapbender.mbBaseButton, {
+    _create: function() {
+        var self = this;
+        $(document).on('mbmapclick', function(event, data) {
+            if (self.isActive()) {
+                alert([
+                    "You clicked on",
+                    data.coordinate.join(" / ") + ' (projected)',
+                    data.pixel.join(" / ") + ' (pixel)'
+                ].join("\n"));
+            }
+        });
+    }
+});
+
+})(jQuery);

@@ -1,0 +1,17 @@
+{% extends "MapbenderManagerBundle::manager.html.twig" %}
+
+{% block manager_content %}
+    <div class="text-right pull-right">{% block extra_action_buttons %}{% endblock %}</div>
+    {% block tabs_wrapper %}
+    <div class="tabContainer">
+        <ul class="nav" role="tablist">
+        {% block tab_headers %}
+        {% endblock tab_headers %}
+        </ul>
+        <div class="tab-content">
+        {% block tab_containers %}
+        {% endblock tab_containers %}
+        </div>
+    </div>
+    {% endblock tabs_wrapper %}
+{% endblock %}

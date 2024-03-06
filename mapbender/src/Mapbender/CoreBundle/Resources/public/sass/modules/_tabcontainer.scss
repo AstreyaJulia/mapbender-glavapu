@@ -1,0 +1,176 @@
+/** Frontend only */
+/**
+  Amend potentially undefined variables, if included directly from older template that doesn't define them.
+  See libs/_variables.scss for full set.
+ */
+
+$accordionFontSize: 100% !default;
+$accordionBackgroundColor: $buttonFirstColor !default;
+$accordionTextColor: $lightFontColor !default;
+$accordionActiveBackgroundColor: darken($buttonFirstColor, 10%) !default;
+$accordionActiveTextColor: $lightFontColor !default;
+$accordionHoverBackgroundColor: darken($buttonFirstColor, 5%) !default;
+
+$sidepaneButtonFontSize: 100% !default;
+$sidepaneButtonTextColor: $lightFontColor !default;
+$sidepaneButtonBackgroundColor: $buttonFirstColor !default;
+$sidepaneButtonBorderColor: darken($buttonSecondColor, 5%) !default;
+$sidepaneButtonHoverColor: darken($buttonFirstColor, 5%) !default;
+$sidepaneButtonActiveTextColor: $lightFontColor !default;
+$sidepaneButtonActiveBackgroundColor: $buttonFirstActiveColor !default;
+
+$panelBorderColor: #888 !default;
+
+$hoverEffects: true !default;
+
+.tabContainer{
+  .tab, .container {
+    border: 1px solid $panelBorderColor;
+  }
+  .tab{
+    background-color: #fff;   // Must be opaque
+    margin-right: -1px;
+    cursor:pointer;
+    position: relative; // for z-index
+    border-bottom: none;
+    float:left;
+    padding: 0.75em;
+    user-select: none;
+    // Cover container border
+    margin-bottom: -3px;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    opacity: 0.6;
+
+    &.active {
+      z-index: 2;
+      opacity: 1;
+    }
+    &:hover, &:focus {
+      outline: none;
+    }
+  }
+  .container{
+    clear:left;
+    display:none;
+    padding: 10px;
+    position:relative;
+    z-index: 1;
+    border-top-width: 3px;
+    &.active{display:block;}
+  }
+}
+
+.tabContainerAlt,
+.accordionContainer,
+.popup .tabContainer,
+.mobileContent .tabContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+.tabContainerAlt > .tabs,
+.accordionContainer > .accordion,
+.popup .tabContainer > .tabs,
+.mobileContent .tabContainer > .tabs {
+  flex: 0 0 auto; // fixed size
+}
+.tabContainerAlt >.container,
+.accordionContainer > .container-accordion,
+.popup .tabContainer > .container,
+.mobileContent .tabContainer > .container {
+  flex: 1 1 auto; // grow and shrink
+}
+
+.tabContainerAlt >.container,
+.accordionContainer > .container-accordion {
+  &:not(.active) {
+    display: none;
+  }
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+.tabContainerAlt >.container > *,
+.accordionContainer > .container-accordion > .accordion-cell {
+  // Extend content to fill entire accordion cell; this is a Hack helping nested absolte-positioned
+  // content from overflowing natural size and creating a scrollbar (e.g. Layertree context menu)
+  width: 100%;
+  height: 100%;
+  .sidePane & {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.tabContainerAlt{
+  > .tabs {
+    list-style: none;
+    border-bottom: dashed 1px $panelBorderColor;
+    padding-bottom: $space;
+    margin-bottom: $space;
+  }
+  .tab {
+    @extend .buttonCore;
+    display: inline-block;
+    font-size: $sidepaneButtonFontSize;
+    padding: 0.25em 10px;
+    margin: 0 0.25em 0.25em 0;
+    color: $sidepaneButtonTextColor;
+    background-color: $sidepaneButtonBackgroundColor;
+    border: 1px solid $sidepaneButtonBorderColor;
+
+    &.active{
+      cursor:default;
+      color: $sidepaneButtonActiveTextColor;
+      background-color: $sidepaneButtonActiveBackgroundColor;
+    }
+    @if $hoverEffects {
+      &:hover:not(.active) {
+        background-color: $sidepaneButtonHoverColor;
+      }
+    }
+  }
+  .container {
+    // Undo Bootstrap margin + padding
+    // @ŧodo: if we want nothing from Bootstrap .container, we should not add Bootstrap .container
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.tabContainer .container, .tabContainerAlt .container {
+  width: 100%;  // overrule Bootstrap .container (which has varying width depending on screen size)
+}
+
+.accordionContainer {
+  .accordion{
+    user-select: none;
+    cursor: pointer;
+    padding: 5px 0.5em;
+    font-size: $accordionFontSize;
+    color: $accordionTextColor;
+    background-color: $accordionBackgroundColor;
+    &.active {
+      color: $accordionActiveTextColor;
+      background-color: $accordionActiveBackgroundColor;
+    }
+    @if $hoverEffects {
+      &:hover:not(.active) {
+        background-color: $accordionHoverBackgroundColor;
+      }
+    }
+  }
+  .container-accordion {
+    .accordion-cell {
+      padding-top: $space / 2;
+    }
+  }
+  // spacing between consecutive content blocks
+  .container-accordion + .accordion {
+    margin-top: 2px;
+  }
+}

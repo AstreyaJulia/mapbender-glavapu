@@ -1,0 +1,66 @@
+  <ul class="layers" >
+      <li class="-fn-theme-template themeContainer hidden">
+        <div class="leaveContainer">
+          <span class="-fn-toggle-children clickable" title="{{ 'mb.core.layertree.tooltip.sublayers_openclose'|trans }}">
+              <i class="fa fa-fw fas fa-folder"></i>
+          </span>
+          <span class="-fn-toggle-selected clickable" title="{{ 'mb.core.layertree.label.sourcevisibility_onoff' | trans }}">
+                <i class="fa fa-fw far fa-square"></i>
+          </span>
+          <span class="layer-title"></span>
+        </div>
+        <ul class="layers"></ul>
+      </li>
+      <li class="-fn-template hidden leave showLeaves">
+        <div class="leaveContainer">
+          <span class="-fn-toggle-children clickable" title="{{ 'mb.core.layertree.tooltip.sublayers_openclose'|trans }}">
+            <i class="fa fa-fw fas fa-folder"></i>
+          </span>
+          <span class="clickable -fn-toggle-selected" title="{{ 'mb.core.layertree.label.visibility_onoff' | trans }}">
+              <i class="fa fa-fw far fa-square"></i>
+          </span>
+          <span class="clickable -fn-toggle-info" title="{{ 'mb.core.layertree.label.featureinfo_onoff' | trans  }}">
+            <i class="fa fa-fw fas fa-info"></i>
+          </span>
+          <span class="layer-title"></span>
+          <span class="error-icon-wrapper"><i class="fa fas fa-exclamation-triangle"></i></span>
+          <span class="loading-icon-wrapper"><i class="fa fas fa-spinner fa-spin"></i></span>
+          {% if configuration.menu is defined and configuration.menu %}
+          <span class="layer-menu-btn"><i class="fa fas fa-bars"></i></span>
+            <div class="layer-menu hidden">
+              <div class="text-right">
+                <span class="exit-button" title="{{ 'mb.core.layertree.tooltip.menu.close'|trans }}"><i class="fa fas fa-times"></i></span>
+              </div>
+              {% if 'opacity' in configuration.menu %}
+                  <div class="layer-control-opacity layer-control-root-only">
+                    <div class="layer-opacity-bar layer-slider-bar" title="{{ "mb.core.layertree.label.opacity"|trans }}">
+                        <div class="layer-opacity-handle layer-slider-handle">100</div>
+                    </div>
+              </div>
+              {% endif %}
+              {% if 'dimension' in configuration.menu %}
+                  <div class="layer-control-dimensions layer-control-root-only">
+                      <div class="checkbox"><label><input type="checkbox" title="{{ 'mb.core.layertree.label.dimension_onoff' | trans  }}"/><span class="layer-dimension-title"></span></label></div>
+                      <div class="layer-dimension-bar layer-slider-bar" title="{{ "mb.core.layertree.label.dimension" |trans }}">
+                        <div class="layer-dimension-handle layer-slider-handle"></div>
+                      </div>
+                      <input type="text" class="layer-dimension-textfield" name="dimension-extent" title="{{ "mb.core.layertree.label.dimension" |trans }}"/>
+                  </div>
+              {% endif %}
+              <div class="text-right">
+                {% if 'zoomtolayer' in configuration.menu %}
+                <span class="layer-zoom fa fas fa-search hover-highlight-effect clickable" title="{{ 'mb.core.layertree.label.zoomtolayer'|trans }}"></span>
+                {% endif %}
+                {% if 'metadata' in configuration.menu %}
+                <span class="layer-metadata fa far fa-file-alt fa-file-text-o hover-highlight-effect clickable" title="{{ 'mb.core.layertree.label.metadata'|trans }}"></span>
+                {% endif %}
+                {% if 'layerremove' in configuration.menu %}
+                <span class="layer-remove-btn fa fas fa-times hover-highlight-effect clickable" title="{{ 'mb.core.layertree.tooltip.removelayer'|trans }}"></span>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <ul class="layers"></ul>
+      </li>
+  </ul>

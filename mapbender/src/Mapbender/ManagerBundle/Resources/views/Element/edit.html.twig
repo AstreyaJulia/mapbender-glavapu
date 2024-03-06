@@ -1,0 +1,21 @@
+    {{ form_start(form, {'attr': form.vars.attr | default({}) | merge({
+        'class': ((form.vars.attr.class | default('')) ~ ' elementForm') | trim,
+        novalidate: 'novalidate'
+    })}) }}
+
+    {% block form_fields %}
+        {% block form_fields_common %}
+            {# fields shared by all Element forms #}
+            {{ form_row(form._token) }}
+        {% endblock %}
+        {% block form_fields_dynamic %}
+            {# fields added by the Element's custom form type #}
+            {% if theme is defined and theme != '' %}
+                {% include(theme) %}
+            {% else %}
+                {{ form_row(form.title) }}
+                {{ form_rest(form.configuration) }}
+            {% endif %}
+        {% endblock %}
+    {% endblock %}
+  {{ form_end(form, {'render_rest': false}) }}
