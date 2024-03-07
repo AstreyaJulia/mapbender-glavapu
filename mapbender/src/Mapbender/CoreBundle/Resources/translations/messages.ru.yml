@@ -109,9 +109,9 @@ mb:
         collection_path: 'Путь результатов'
         collection_path.help: 'Путь, указывающий на массив результатов в ответе URL-адреса поиска. Уровни иерархии разделяются точками. Например. <code>response.docs</code> (Solr Standard), <code>features</code> (GeoJSON)'
         label_attribute: 'Атрибут метки'
-        label_attribute.help: 'Путь (в пределах одного результата) к атрибуту, который будет использоваться в качестве метки, например. <код>метка</code>. Альтернативно можно ввести строковый шаблон, например <code>Город ${properties.address.city} – ${properties.address.road}</code>'
+        label_attribute.help: 'Путь (в пределах одного результата) к атрибуту, который будет использоваться в качестве метки, например. <код>label</code>. Альтернативно можно ввести строковый шаблон, например <code>Город ${properties.address.city} – ${properties.address.road}</code>'
         geom_attribute: 'Атрибут геометрии'
-        geom_attribute.help: 'Путь (в пределах одного результата) к атрибуту, предоставляющему геометрию, например. <code>геом</code>, <code>геометрия</code> (GeoJSON)'
+        geom_attribute.help: 'Путь (в пределах одного результата) к атрибуту, предоставляющему геометрию, например. <code>geom</code>, <code>geometry</code> (GeoJSON)'
         geom_format: 'Формат геометрии'
         geom_format.help: 'Предоставленный формат геометрии: либо <a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry" target="_blank">Well Known Text</a>, либо <a href="https://geojson". .org/" target="_blank">GeoJSON</a>'
         sourceSrs: 'Источник SRS'
@@ -182,7 +182,7 @@ mb:
       create_error: 'Линейка: Тип должен быть линией или областью.'
       class:
         title: Линейка/Зона
-        description: 'Линейку, чтобы нарисовать линию/зону и расчитать длина/площадь в окне'
+        description: 'Линейку, чтобы нарисовать линию/зону и рассчитать длина/площадь в окне'
       tag:
         line: линия
         area: область
